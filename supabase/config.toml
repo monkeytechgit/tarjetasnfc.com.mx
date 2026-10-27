@@ -1,0 +1,12 @@
+project_id = "glgvxxbhmbvyqacwkseg"
+
+# Stripe no envía JWT de Supabase: la seguridad del webhook es la firma (STRIPE_WEBHOOK_SECRET).
+[functions.stripe-webhook]
+verify_jwt = false
+
+# El sitio llama estas funciones con la clave anon (pública) en Authorization.
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.checkout-status]
+verify_jwt = true

@@ -1,0 +1,6 @@
+# tarjetasnfc.com.mx
+User-agent: *
+Allow: /
+Disallow: /herramientas/
+
+Sitemap: https://www.tarjetasnfc.com.mx/sitemap.xml
