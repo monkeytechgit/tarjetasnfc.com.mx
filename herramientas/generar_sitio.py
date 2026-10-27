@@ -386,9 +386,9 @@ def head(base, titulo, descripcion, ruta, imagen, grafo, tipo_og="website", keyw
 <meta name="twitter:description" content="{escape(descripcion)}">
 <meta name="twitter:image" content="{DOMINIO}/{imagen}">
 <meta name="twitter:image:alt" content="{escape(img_alt)}">
-<link rel="icon" type="image/png" href="{base}imagenes/favicon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{base}imagenes/favicon-192.png">
-<link rel="apple-touch-icon" href="{base}imagenes/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/png" href="{base}imagenes/favicon-192.png">
+<link rel="apple-touch-icon" href="{base}imagenes/favicon-192.png">
 <link rel="manifest" href="{base}site.webmanifest">
 <link rel="sitemap" type="application/xml" href="{DOMINIO}/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
