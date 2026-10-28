@@ -66,4 +66,117 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/google-maps-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/pago-nfc-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/taqueria-cdmx-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/leyendo-resenas-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/qr-restaurante-yucatan-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/restaurante-la-paz-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/wifi-cafeteria-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/ilustracion-resenas-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/instagram-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/barberia-polanco-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/como-conseguir-mas-resenas-en-google.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/como-conseguir-mas-resenas-en-google.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/como-conseguir-mas-resenas-en-google.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/google-maps-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/leyendo-resenas-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/que-es-una-tarjeta-nfc.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/que-es-una-tarjeta-nfc.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/que-es-una-tarjeta-nfc.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/pago-nfc-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/etiquetas-nfc-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/como-aparecer-en-google-maps.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/como-aparecer-en-google-maps.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/como-aparecer-en-google-maps.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/taqueria-cdmx-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/taqueria-dolores-hidalgo-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/como-responder-resenas-negativas.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/como-responder-resenas-negativas.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/como-responder-resenas-negativas.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/leyendo-resenas-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/nfc-vs-codigo-qr.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/nfc-vs-codigo-qr.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/nfc-vs-codigo-qr.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/qr-restaurante-yucatan-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-restaurantes.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-restaurantes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-restaurantes.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/restaurante-la-paz-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/taqueria-cdmx-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/como-compartir-wifi-con-clientes.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/como-compartir-wifi-con-clientes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/como-compartir-wifi-con-clientes.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/wifi-cafeteria-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/resenas-falsas-y-politicas-de-google.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/resenas-falsas-y-politicas-de-google.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/resenas-falsas-y-politicas-de-google.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/ilustracion-resenas-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/como-conseguir-seguidores-instagram-negocio-local.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/como-conseguir-seguidores-instagram-negocio-local.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/como-conseguir-seguidores-instagram-negocio-local.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/instagram-celular-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/perfil-redes-celular-1200.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html"/>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://www.tarjetasnfc.com.mx/imagenes/blog/barberia-polanco-1200.webp</image:loc></image:image>
+  </url>
 </urlset>

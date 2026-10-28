@@ -320,6 +320,31 @@
     aplicar();
   }
 
+  /* ---------- Blog: filtro por tema ---------- */
+  var rejillaBlog = $("#rejilla-blog");
+  if (rejillaBlog) {
+    var filtrosBlog = $$("[data-blog-filtro]");
+    var temaBlog = new URLSearchParams(location.search).get("categoria") || "todas";
+    if (!filtrosBlog.some(function (c) { return c.getAttribute("data-blog-filtro") === temaBlog; })) temaBlog = "todas";
+    function aplicarBlog() {
+      $$(".tarjeta-blog", rejillaBlog).forEach(function (t) {
+        t.hidden = temaBlog !== "todas" && t.getAttribute("data-blog-cat") !== temaBlog;
+      });
+      filtrosBlog.forEach(function (c) { c.setAttribute("aria-pressed", String(c.getAttribute("data-blog-filtro") === temaBlog)); });
+    }
+    filtrosBlog.forEach(function (c) {
+      c.addEventListener("click", function () {
+        temaBlog = c.getAttribute("data-blog-filtro");
+        var url = new URL(location.href);
+        if (temaBlog === "todas") url.searchParams.delete("categoria"); else url.searchParams.set("categoria", temaBlog);
+        history.replaceState(null, "", url);
+        aplicarBlog();
+      });
+    });
+    aplicarBlog();
+    if (temaBlog !== "todas") rejillaBlog.scrollIntoView();
+  }
+
   /* ---------- Galería de producto ---------- */
   var galeria = $(".galeria");
   function salirPantallaCompleta() {

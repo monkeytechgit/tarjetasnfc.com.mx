@@ -9,12 +9,18 @@ productos, edita las listas de abajo y vuelve a ejecutar:
 """
 import hashlib
 import json
+import math
 import os
+import re
 import shutil
 import subprocess
+import sys
 from datetime import date
 from html import escape
 from urllib.parse import quote
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import blog as BLOG  # noqa: E402  (datos del blog: herramientas/blog.py)
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMINIO = "https://www.tarjetasnfc.com.mx"
@@ -35,6 +41,15 @@ PUBLICADO = "2026-10-26"           # fecha de publicación del sitio (datos estr
 PRECIO_VALIDO = "%d-12-31" % (date.today().year + 1)
 ID_ORG = DOMINIO + "/#organizacion"
 ID_SITIO = DOMINIO + "/#sitio"
+
+def version_archivo(ruta):
+    """Huella corta del contenido, para que el navegador descargue CSS/JS nuevos tras cada cambio."""
+    with open(os.path.join(RAIZ, ruta), "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()[:10]
+
+
+V_CSS = version_archivo("css/estilos.css")
+V_JS = version_archivo("js/main.js")
 
 # Menú "Ayuda": cada elemento es una página .html en la raíz
 AYUDA = [
@@ -394,7 +409,7 @@ def head(base, titulo, descripcion, ruta, imagen, grafo, tipo_og="website", keyw
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{base}css/estilos.css">
+<link rel="stylesheet" href="{base}css/estilos.css?v={V_CSS}">
 {preload}<script type="application/ld+json">{ld}</script>
 </head>"""
 
@@ -541,6 +556,7 @@ def header(base, actual=""):
   <div class="contenedor">
     <nav aria-label="Enlaces rápidos">
       <a href="{base}como-funciona.html">Cómo funciona</a>
+      <a href="{base}blog/index.html">Blog</a>
       <a href="{base}envios-y-devoluciones.html">Envíos</a>
       <a href="{base}contacto.html">Contacto</a>
       <a href="tel:{TELEFONO_E164}">{TELEFONO}</a>
@@ -574,6 +590,7 @@ def header(base, actual=""):
           <a class="nav__enlace" href="{base}como-funciona.html"{' aria-current="page"' if actual == "ayuda" else ""}>Ayuda {icono("abajo", 16)}</a>
           <div class="mega mega--lista">{ayuda_enlaces}</div>
         </li>
+        <li class="nav__item"><a class="nav__enlace" href="{base}blog/index.html"{' aria-current="page"' if actual == "blog" else ""}>Blog</a></li>
         <li class="nav__item"><a class="nav__enlace" href="https://wa.me/{WHATSAPP}?text={quote('Hola, me interesa un pedido de mayoreo de tarjetas NFC')}" target="_blank" rel="noopener">Mayoreo</a></li>
       </ul>
     </nav>
@@ -593,6 +610,7 @@ def header(base, actual=""):
     {cats_movil}
     <a href="{idx}#precios">Paquetes y precios</a>
     <details><summary>Ayuda {icono("abajo", 18)}</summary><div>{ayuda_enlaces}</div></details>
+    <a href="{base}blog/index.html">Blog: guías y consejos</a>
     <a href="{idx}#preguntas">Preguntas frecuentes</a>
     <a href="https://wa.me/{WHATSAPP}" target="_blank" rel="noopener">Contacto por WhatsApp</a>
   </div>
@@ -646,6 +664,7 @@ def pie(base):
           <h3>Ayuda</h3>
           <ul>
             {''.join('<li><a href="%s%s">%s</a></li>' % (base, a, t) for a, t in AYUDA)}
+            <li><a href="{base}blog/index.html">Blog</a></li>
             <li><a href="{idx}#preguntas">Preguntas frecuentes</a></li>
             <li><a href="https://wa.me/{WHATSAPP}?text={quote('Hola, me interesa un pedido de mayoreo de tarjetas NFC')}" target="_blank" rel="noopener">Pedidos de mayoreo</a></li>
           </ul>
@@ -684,7 +703,7 @@ def carrito_y_scripts(base):
 <button class="volver-arriba" type="button" aria-label="Volver arriba">{icono("arriba", 20)}</button>
 <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 <script src="{base}js/productos.js"></script>
-<script src="{base}js/main.js"></script>
+<script src="{base}js/main.js?v={V_JS}"></script>
 </body>
 </html>
 """
@@ -782,7 +801,7 @@ def generar_index():
     grafo = [nodo_org(), nodo_sitio()] + nodos_pagina(
         "", "Tarjetas NFC para reseñas y redes sociales en México", descripcion, [], "CollectionPage",
         "imagenes/productos/google-nfc.png", {"mainEntity": {"@id": DOMINIO + "/#catalogo"}}, (),
-        [p["url"] for p in PRODUCTOS] + [a for a, _ in AYUDA])
+        [p["url"] for p in PRODUCTOS] + [a for a, _ in AYUDA] + ["blog/"])
     grafo[2]["breadcrumb"] = {"@id": DOMINIO + "/#migas"}
     grafo[3] = {"@type": "BreadcrumbList", "@id": DOMINIO + "/#migas",
                 "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": DOMINIO + "/"}]}
@@ -873,7 +892,9 @@ def generar_index():
     </div>
   </section>
 
-  <section class="seccion" id="preguntas" aria-labelledby="titulo-faq">
+{seccion_blog(base, BLOG.ARTICULOS[:3])}
+
+  <section class="seccion seccion--gris" id="preguntas" aria-labelledby="titulo-faq">
     <div class="contenedor">
       <div class="encabezado-seccion">
         <h2 id="titulo-faq">Preguntas frecuentes</h2>
@@ -1157,6 +1178,7 @@ def generar_producto(p):
       <div class="rejilla">{''.join(tarjeta_producto(x, base) for x in relacionados)}</div>
     </div>
   </section>
+{seccion_blog(base, articulos_para_producto(p), "Guías para sacarle provecho a tu tarjeta", "titulo-guias", gris=True)}
 </main>
 
 <div class="barra-compra" aria-hidden="true">
@@ -1226,6 +1248,7 @@ def pagina_ayuda(archivo, titulo_seo, descripcion, keywords, etiqueta, h1, intro
     {faq_bloque(faq) if faq else ""}
     {caja_mas_ayuda() if mas_ayuda else ""}
   </div>
+{seccion_blog(base, BLOG.ARTICULOS[:3], "Sigue aprendiendo en nuestro blog", "titulo-guias", gris=True)}
 </main>
 {pie(base)}
 {carrito_y_scripts(base)}"""
@@ -1459,6 +1482,329 @@ def generar_ayuda():
 
 
 # --------------------------------------------------------------------------
+# Blog (datos en herramientas/blog.py, cuerpos en herramientas/blog/<slug>.html)
+# --------------------------------------------------------------------------
+NOMBRE_CAT_BLOG = dict(BLOG.CATEGORIAS_BLOG)
+MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+AUTOR_BLOG = "Equipo TarjetasNFC"
+PRODUCTO_POR_SLUG = {p["slug"]: p for p in PRODUCTOS}
+
+
+def fecha_larga(iso):
+    a, m, d = iso.split("-")
+    return "%d de %s de %s" % (int(d), MESES[int(m) - 1], a)
+
+
+def img_blog(clave):
+    return "imagenes/blog/%s-1200.webp" % clave
+
+
+def figura_blog(clave, base, sizes="(max-width: 860px) 100vw, 760px", lazy=True, clase="", pie=""):
+    im = BLOG.IMAGENES[clave]
+    srcset = "%simagenes/blog/%s-800.webp 800w, %simagenes/blog/%s-1200.webp 1200w" % (base, clave, base, clave)
+    credito = ('Foto: <a href="%s" target="_blank" rel="noopener">%s</a>, <a href="%s" target="_blank" rel="noopener license">%s</a>, vía Wikimedia Commons'
+               % (im["fuente"], escape(im["autor"]), im["licencia_url"], im["licencia"]))
+    return ('<figure class="figura-blog %s"><img src="%s%s" srcset="%s" sizes="%s" alt="%s" width="%d" height="%d"%s decoding="async">'
+            '<figcaption>%s<span class="figura-blog__credito">%s</span></figcaption></figure>'
+            % (clase, base, img_blog(clave), srcset, sizes, escape(im["alt"]), im["ancho"], im["alto"],
+               ' loading="lazy"' if lazy else ' fetchpriority="high"', ("%s " % pie) if pie else "", credito))
+
+
+def producto_mini(p, base):
+    return f"""<aside class="producto-mini" aria-label="Producto recomendado">
+  <img src="{base}{webp(p, 400)}" alt="{escape(p['nombre'])}" width="96" height="96" loading="lazy">
+  <div class="producto-mini__info">
+    <span class="producto-mini__eti">Producto recomendado</span>
+    <a class="producto-mini__nombre" href="{base}{p['url']}">{escape(p['nombre'])}</a>
+    <span class="producto-mini__precio">Desde {dinero(PAQUETES[-1]['unidad'])} por tarjeta · Envío gratis</span>
+  </div>
+  <a class="btn btn--primario btn--sm" href="{base}{p['url']}">Ver tarjeta {icono("der", 16)}</a>
+</aside>"""
+
+
+def cuerpo_articulo(a, base):
+    """Lee el HTML del artículo, sustituye los marcadores y devuelve (html, índice, palabras)."""
+    with open(os.path.join(RAIZ, "herramientas", "blog", a["slug"] + ".html"), encoding="utf-8") as fh:
+        html = fh.read()
+    html = re.sub(r"<!--img:([\w-]+)-->", lambda m: figura_blog(m.group(1), base), html)
+    html = re.sub(r"<!--producto:([\w-]+)-->", lambda m: producto_mini(PRODUCTO_POR_SLUG[m.group(1)], base), html)
+    indice = re.findall(r'<h2 id="([\w-]+)">(.*?)</h2>', html)
+    palabras = len(re.sub(r"<[^>]+>", " ", html).split())
+    return html, indice, palabras
+
+
+def tarjeta_blog(a, base, h="h3", lazy=True, destacada=False):
+    minutos = a["minutos"]
+    return f"""
+<article class="tarjeta-blog{' tarjeta-blog--destacada' if destacada else ''}" data-blog-cat="{a['cat']}">
+  <a class="tarjeta-blog__media" href="{base}blog/{a['slug']}.html" tabindex="-1" aria-hidden="true">
+    <img src="{base}imagenes/blog/{a['imagen']}-800.webp" srcset="{base}imagenes/blog/{a['imagen']}-800.webp 800w, {base}imagenes/blog/{a['imagen']}-1200.webp 1200w" sizes="{'(max-width: 860px) 100vw, 640px' if destacada else '(max-width: 720px) 100vw, (max-width: 1024px) 50vw, 400px'}" alt="{escape(BLOG.IMAGENES[a['imagen']]['alt'])}" width="800" height="{round(800 * BLOG.IMAGENES[a['imagen']]['alto'] / BLOG.IMAGENES[a['imagen']]['ancho'])}"{' loading="lazy"' if lazy else ''} decoding="async">
+  </a>
+  <div class="tarjeta-blog__cuerpo">
+    <span class="tarjeta-blog__cat">{NOMBRE_CAT_BLOG[a['cat']]}</span>
+    <{h}><a href="{base}blog/{a['slug']}.html">{escape(a['titulo'])}</a></{h}>
+    <p>{escape(a['descripcion'])}</p>
+    <span class="tarjeta-blog__meta">{icono("rayo", 14)} {minutos} min de lectura</span>
+  </div>
+</article>"""
+
+
+def seccion_blog(base, articulos, titulo="Guías para hacer crecer tu negocio", ident="titulo-blog", gris=False):
+    return f"""
+  <section class="seccion{' seccion--gris' if gris else ''}" aria-labelledby="{ident}">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <span class="etiqueta-seccion">Blog</span>
+        <h2 id="{ident}">{titulo}</h2>
+        <p>Consejos prácticos sobre reseñas, Google Maps, redes sociales y tecnología NFC.</p>
+      </div>
+      <div class="blog-rejilla">{''.join(tarjeta_blog(a, base) for a in articulos)}</div>
+      <p class="centrado"><a class="enlace-ver-mas" href="{base}blog/index.html">Ver todos los artículos {icono("der", 18)}</a></p>
+    </div>
+  </section>"""
+
+
+def preparar_blog():
+    """Calcula tiempo de lectura de cada artículo (se usa en tarjetas antes de generar el blog)."""
+    for a in BLOG.ARTICULOS:
+        _, _, palabras = cuerpo_articulo(a, "../")
+        a["palabras"] = palabras
+        a["minutos"] = max(1, math.ceil(palabras / 200))
+        a["publicado"] = a.get("publicado", BLOG.PUBLICADO_BLOG)
+
+
+def articulos_para_producto(p, n=3):
+    propios = [a for a in BLOG.ARTICULOS if p["slug"] in a["productos"]]
+    resto = [a for a in BLOG.ARTICULOS if a not in propios]
+    return (propios + resto)[:n]
+
+
+def nodo_imagen_blog(clave, url_id):
+    im = BLOG.IMAGENES[clave]
+    return {"@type": "ImageObject", "@id": url_id, "url": DOMINIO + "/" + img_blog(clave), "contentUrl": DOMINIO + "/" + img_blog(clave),
+            "width": im["ancho"], "height": im["alto"], "caption": im["alt"], "inLanguage": "es-MX",
+            "creator": {"@type": "Person", "name": im["autor"]}, "creditText": "%s / Wikimedia Commons (%s)" % (im["autor"], im["licencia"]),
+            "copyrightNotice": im["autor"], "license": im["licencia_url"], "acquireLicensePage": im["fuente"]}
+
+
+def generar_articulo(a):
+    base = "../"
+    ruta = "blog/%s.html" % a["slug"]
+    url = DOMINIO + "/" + ruta
+    cuerpo, indice, palabras = cuerpo_articulo(a, base)
+    im = BLOG.IMAGENES[a["imagen"]]
+    fuentes = [BLOG.FUENTES[k] for k in a["fuentes"]]
+    productos = [PRODUCTO_POR_SLUG[s] for s in a["productos"]]
+    relacionados = [x for x in BLOG.ARTICULOS if x is not a and x["cat"] == a["cat"]]
+    relacionados += [x for x in BLOG.ARTICULOS if x is not a and x not in relacionados]
+    relacionados = relacionados[:3]
+
+    post = {
+        "@type": "BlogPosting", "@id": url + "#articulo", "headline": a["titulo"], "name": a["titulo"], "description": a["descripcion"],
+        "url": url, "mainEntityOfPage": {"@id": url + "#webpage"}, "isPartOf": {"@id": DOMINIO + "/blog/#blog"},
+        "image": {"@id": url + "#imagen"}, "inLanguage": "es-MX", "articleSection": NOMBRE_CAT_BLOG[a["cat"]],
+        "keywords": ", ".join(a["keywords"]), "wordCount": palabras, "timeRequired": "PT%dM" % a["minutos"],
+        "datePublished": a["publicado"] + "T09:00:00-06:00", "dateModified": FECHA_MOD + "T09:00:00-06:00",
+        "author": {"@type": "Organization", "@id": ID_ORG, "name": AUTOR_BLOG, "url": DOMINIO + "/"},
+        "publisher": {"@id": ID_ORG},
+        "about": [{"@type": "Thing", "name": k} for k in a["keywords"][:3]],
+        "mentions": [{"@type": "Product", "name": p["nombre"], "url": DOMINIO + "/" + p["url"]} for p in productos],
+        "citation": [{"@type": "CreativeWork", "name": t, "publisher": {"@type": "Organization", "name": e}, "url": u} for t, e, u in fuentes],
+        "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".articulo__titulo", ".resumen"]},
+    }
+    grafo = [nodo_org(), nodo_sitio()] + nodos_pagina(
+        ruta, a["titulo"], a["descripcion"], [("Inicio", ""), ("Blog", "blog/")], "WebPage", None,
+        {"mainEntity": {"@id": url + "#articulo"}, "datePublished": a["publicado"], "primaryImageOfPage": {"@id": url + "#imagen"},
+         "image": {"@id": url + "#imagen"}},
+        a["keywords"], [p["url"] for p in productos] + ["blog/%s.html" % x["slug"] for x in relacionados])
+    grafo += [nodo_imagen_blog(a["imagen"], url + "#imagen"), post, nodo_faq(ruta, a["faq"])]
+    extra_meta = ('<meta property="article:published_time" content="%sT09:00:00-06:00">\n'
+                  '<meta property="article:modified_time" content="%sT09:00:00-06:00">\n'
+                  '<meta property="article:section" content="%s">\n<meta property="article:author" content="%s">\n%s'
+                  % (a["publicado"], FECHA_MOD, NOMBRE_CAT_BLOG[a["cat"]], AUTOR_BLOG,
+                     "".join('<meta property="article:tag" content="%s">\n' % escape(k) for k in a["keywords"][:6])))
+    html = head(base, a["titulo_seo"], a["descripcion"], ruta, "imagenes/blog/%s.jpg" % a["imagen"], grafo, "article",
+                a["keywords"], (im["ancho"], im["alto"]), im["alt"], extra_meta,
+                preload='<link rel="preload" as="image" href="%s%s" imagesrcset="%simagenes/blog/%s-800.webp 800w, %simagenes/blog/%s-1200.webp 1200w" '
+                        'imagesizes="(max-width: 860px) 100vw, 760px" fetchpriority="high">\n'
+                        % (base, img_blog(a["imagen"]), base, a["imagen"], base, a["imagen"]))
+    lista_indice = "".join('<li><a href="#%s">%s</a></li>' % (ident, t) for ident, t in indice + [("preguntas", "Preguntas frecuentes"), ("fuentes", "Fuentes y referencias")])
+    resumen = "".join("<li>%s</li>" % escape(x) for x in a["resumen"])
+    faq = "".join('<details><summary>%s %s</summary><div class="acordeon__cuerpo"><p>%s</p></div></details>' % (escape(q), icono("mas", 20), escape(r))
+                  for q, r in a["faq"])
+    lista_fuentes = "".join('<li><a href="%s" target="_blank" rel="noopener">%s</a> <span>— %s</span></li>' % (u, escape(t), escape(e)) for t, e, u in fuentes)
+    p0 = productos[0]
+    html += f"""
+<body class="pagina-articulo" data-base="{base}">
+{header(base, "blog")}
+<main id="contenido">
+  <article class="articulo" aria-labelledby="titulo-articulo">
+    <header class="articulo__cabecera">
+      <div class="articulo__intro"><div class="contenedor contenedor--texto">
+        <nav class="migas" aria-label="Migas de pan">
+          <ol>
+            <li><a href="{base}index.html">Inicio</a></li>
+            <li><a href="index.html">Blog</a></li>
+            <li aria-current="page">{escape(a['titulo'])}</li>
+          </ol>
+        </nav>
+        <a class="etiqueta-seccion" href="index.html?categoria={a['cat']}">{NOMBRE_CAT_BLOG[a['cat']]}</a>
+        <h1 class="articulo__titulo" id="titulo-articulo">{escape(a['titulo'])}</h1>
+        <p class="articulo__entrada">{escape(a['descripcion'])}</p>
+        <div class="articulo__meta">
+          <span class="articulo__autor"><img src="{base}imagenes/favicon-192.png" alt="" width="36" height="36">Por <b>{AUTOR_BLOG}</b></span>
+          <span>Publicado el <time datetime="{a['publicado']}">{fecha_larga(a['publicado'])}</time></span>
+          <span>{a['minutos']} min de lectura</span>
+        </div>
+      </div></div>
+      <div class="articulo__portada"><div class="contenedor contenedor--portada">{figura_blog(a['imagen'], base, '(max-width: 1100px) 100vw, 1040px', lazy=False, clase='figura-blog--portada')}</div></div>
+    </header>
+
+    <div class="contenedor articulo__rejilla">
+      <div class="articulo__contenido">
+        <section class="resumen" aria-labelledby="titulo-resumen">
+          <h2 id="titulo-resumen">En resumen</h2>
+          <ul>{resumen}</ul>
+        </section>
+        <details class="indice indice--movil">
+          <summary>Contenido del artículo {icono("abajo", 18)}</summary>
+          <ol>{lista_indice}</ol>
+        </details>
+        <div class="prosa">
+          {cuerpo}
+        </div>
+        <section class="articulo__faq" id="preguntas" aria-labelledby="titulo-faq-art">
+          <h2 id="titulo-faq-art">Preguntas frecuentes</h2>
+          <div class="acordeon">{faq}</div>
+        </section>
+        <section class="fuentes" id="fuentes" aria-labelledby="titulo-fuentes">
+          <h2 id="titulo-fuentes">Fuentes y referencias</h2>
+          <ol>{lista_fuentes}</ol>
+          <p class="fuentes__nota">Las marcas mencionadas pertenecen a sus respectivos dueños. Las imágenes provienen de Wikimedia Commons y se usan según su licencia libre, indicada en cada pie de foto.</p>
+        </section>
+        <div class="autor-caja">
+          <img src="{base}imagenes/favicon-192.png" alt="" width="64" height="64" loading="lazy">
+          <div>
+            <strong>{AUTOR_BLOG}</strong>
+            <p>Diseñamos y programamos tarjetas NFC con código QR para negocios de todo México. Escribimos estas guías con base en la documentación oficial de Google, Apple y Android y en lo que aprendemos todos los días con nuestros clientes.</p>
+            <a href="{base}contacto.html">Contáctanos</a> · <a href="{base}como-funciona.html">Cómo funcionan nuestras tarjetas</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="articulo__lateral" aria-label="Contenido y recomendaciones">
+        <nav class="indice" aria-label="Contenido del artículo">
+          <strong>Contenido</strong>
+          <ol>{lista_indice}</ol>
+        </nav>
+        <div class="cta-lateral">
+          <img src="{base}{webp(p0, 400)}" alt="{escape(p0['nombre'])}" width="400" height="400" loading="lazy">
+          <strong>{escape(p0['nombre'])}</strong>
+          <p>Configurada con tu enlace, con NFC y código QR. Pago único y envío gratis.</p>
+          <a class="btn btn--primario btn--bloque" href="{base}{p0['url']}">Ver tarjeta {icono("der", 18)}</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <section class="seccion seccion--gris" aria-labelledby="titulo-mas-blog">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="titulo-mas-blog">Sigue leyendo</h2>
+      </div>
+      <div class="blog-rejilla">{''.join(tarjeta_blog(x, base) for x in relacionados)}</div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="titulo-productos-art">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2 id="titulo-productos-art">Tarjetas mencionadas en este artículo</h2>
+      </div>
+      <div class="rejilla">{''.join(tarjeta_producto(p, base) for p in productos[:4])}</div>
+    </div>
+  </section>
+</main>
+{pie(base)}
+{carrito_y_scripts(base)}"""
+    escribir(ruta, html)
+
+
+def generar_blog():
+    base = "../"
+    ruta = "blog/"
+    url = DOMINIO + "/" + ruta
+    for a in BLOG.ARTICULOS:
+        generar_articulo(a)
+    titulo = "Blog de TarjetasNFC: Reseñas, Google Maps y Marketing Local"
+    descripcion = ("Guías prácticas para negocios en México: más reseñas en Google, aparecer en Google Maps, "
+                   "crecer en redes sociales y usar tarjetas NFC y códigos QR.")
+    keywords = ["blog tarjetas nfc", "cómo conseguir reseñas en google", "seo local méxico", "marketing para negocios locales",
+                "google maps para negocios", "qué es nfc", "reseñas de google", "marketing para restaurantes"]
+    grafo = [nodo_org(), nodo_sitio()] + nodos_pagina(
+        ruta, "Blog de TarjetasNFC", descripcion, [("Inicio", "")], "CollectionPage", None,
+        {"mainEntity": {"@id": url + "#blog"}}, keywords, ["blog/%s.html" % a["slug"] for a in BLOG.ARTICULOS])
+    grafo.append({"@type": "Blog", "@id": url + "#blog", "name": "Blog de TarjetasNFC", "url": url, "description": descripcion,
+                  "inLanguage": "es-MX", "publisher": {"@id": ID_ORG},
+                  "blogPost": [{"@type": "BlogPosting", "@id": DOMINIO + "/blog/%s.html#articulo" % a["slug"], "headline": a["titulo"],
+                                "url": DOMINIO + "/blog/%s.html" % a["slug"], "datePublished": a["publicado"],
+                                "image": DOMINIO + "/" + img_blog(a["imagen"]), "author": {"@id": ID_ORG}} for a in BLOG.ARTICULOS]})
+    grafo.append({"@type": "ItemList", "@id": url + "#articulos", "numberOfItems": len(BLOG.ARTICULOS),
+                  "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": DOMINIO + "/blog/%s.html" % a["slug"], "name": a["titulo"]}
+                                      for i, a in enumerate(BLOG.ARTICULOS)]})
+    destacado = BLOG.ARTICULOS[0]
+    chips = '<button class="chip" type="button" data-blog-filtro="todas" aria-pressed="true">Todos</button>' + "".join(
+        '<button class="chip" type="button" data-blog-filtro="%s" aria-pressed="false">%s</button>' % (c, n)
+        for c, n in BLOG.CATEGORIAS_BLOG if any(a["cat"] == c for a in BLOG.ARTICULOS))
+    html = head(base, titulo, descripcion, ruta, "imagenes/blog/%s.jpg" % destacado["imagen"], grafo, keywords=keywords,
+                img_dim=(BLOG.IMAGENES[destacado["imagen"]]["ancho"], BLOG.IMAGENES[destacado["imagen"]]["alto"]),
+                img_alt=BLOG.IMAGENES[destacado["imagen"]]["alt"])
+    html += f"""
+<body class="pagina-blog" data-base="{base}">
+{header(base, "blog")}
+<main id="contenido">
+  <section class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Migas de pan">
+        <ol>
+          <li><a href="{base}index.html">Inicio</a></li>
+          <li aria-current="page">Blog</li>
+        </ol>
+      </nav>
+      <span class="etiqueta-seccion">Blog</span>
+      <h1>Guías para que tu negocio crezca con reseñas y redes</h1>
+      <p>Consejos prácticos y verificados para negocios en México: reseñas de Google, posicionamiento en Google Maps, redes sociales y tecnología NFC.</p>
+    </div>
+  </section>
+  <div class="contenedor blog-portada">
+    <h2 class="solo-lectores">Artículo destacado</h2>
+    {tarjeta_blog(destacado, base, "h3", lazy=False, destacada=True)}
+  </div>
+  <section class="seccion blog-listado" aria-labelledby="titulo-todos">
+    <div class="contenedor">
+      <div class="catalogo__encabezado">
+        <h2 id="titulo-todos">Todos los artículos</h2>
+      </div>
+      <div class="filtros blog-filtros" role="group" aria-label="Filtrar artículos por tema">{chips}</div>
+      <div class="blog-rejilla" id="rejilla-blog">{''.join(tarjeta_blog(a, base) for a in BLOG.ARTICULOS)}</div>
+    </div>
+  </section>
+  <section class="seccion seccion--gris" aria-labelledby="titulo-blog-productos">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <span class="etiqueta-seccion">De la teoría a la práctica</span>
+        <h2 id="titulo-blog-productos">Las tarjetas más usadas por nuestros lectores</h2>
+      </div>
+      <div class="rejilla">{''.join(tarjeta_producto(p, base) for p in PRODUCTOS[:4])}</div>
+    </div>
+  </section>
+</main>
+{pie(base)}
+{carrito_y_scripts(base)}"""
+    escribir("blog/index.html", html)
+
+
+# --------------------------------------------------------------------------
 def cargar_fechas():
     if os.path.exists(ARCHIVO_FECHAS):
         with open(ARCHIVO_FECHAS, encoding="utf-8") as fh:
@@ -1574,7 +1920,8 @@ th,td{text-align:left;padding:10px 14px;border-bottom:1px solid #e3e6ec;font-siz
 def generar_sitemap_robots():
     """sitemap.xml (índice) -> sitemap-paginas.xml, sitemap-productos.xml y sitemap-videos.xml."""
     def fecha(ruta):
-        return FECHAS.get(ruta or "index.html", {}).get("fecha", HOY)
+        archivo = ruta + "index.html" if ruta == "" or ruta.endswith("/") else ruta
+        return FECHAS.get(archivo, {}).get("fecha", HOY)
 
     def url_xml(ruta, frecuencia, prioridad, imagenes=(), video=None):
         loc = DOMINIO + "/" + ruta
@@ -1606,13 +1953,17 @@ def generar_sitemap_robots():
                 '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n')
     hijos = {
         "sitemap-paginas.xml": [url_xml("", "daily", "1.0", [webp(p, 1200) for p in PRODUCTOS])]
-                               + [url_xml(a, "monthly", "0.6", IMAGENES_AYUDA.get(a, ())) for a, _ in AYUDA],
+                               + [url_xml(a, "monthly", "0.6", IMAGENES_AYUDA.get(a, ())) for a, _ in AYUDA]
+                               + [url_xml("blog/", "weekly", "0.7", [img_blog(a["imagen"]) for a in BLOG.ARTICULOS])]
+                               + [url_xml("blog/%s.html" % a["slug"], "monthly", "0.7", [img_blog(a["imagen"])]
+                                          + [img_blog(k) for k in re.findall(r"<!--img:([\w-]+)-->", open(os.path.join(RAIZ, "herramientas", "blog", a["slug"] + ".html"), encoding="utf-8").read()) if k != a["imagen"]])
+                                  for a in BLOG.ARTICULOS],
         "sitemap-productos.xml": [url_xml(p["url"], "weekly", "0.9", [webp(p, 1200)] + ([p["video"]["poster"]] if p.get("video") else []))
                                   for p in PRODUCTOS],
         "sitemap-videos.xml": [url_xml(p["url"], "weekly", "0.9", (), p["video"]) for p in PRODUCTOS if p.get("video")]
                               + [url_xml("como-funciona.html", "monthly", "0.6", (), VIDEO_GOOGLE)],
     }
-    rutas_hijo = {"sitemap-paginas.xml": [""] + [a for a, _ in AYUDA], "sitemap-productos.xml": [p["url"] for p in PRODUCTOS],
+    rutas_hijo = {"sitemap-paginas.xml": [""] + [a for a, _ in AYUDA] + ["blog/"] + ["blog/%s.html" % a["slug"] for a in BLOG.ARTICULOS], "sitemap-productos.xml": [p["url"] for p in PRODUCTOS],
                   "sitemap-videos.xml": [p["url"] for p in PRODUCTOS if p.get("video")] + ["como-funciona.html"]}
     for nombre, urls in hijos.items():
         escribir(nombre, cabecera + "\n".join(urls) + "\n</urlset>\n")
@@ -1631,13 +1982,16 @@ def generar_sitemap_robots():
 if __name__ == "__main__":
     cargar_fechas()
     generar_webp()
+    preparar_blog()
     generar_datos_js()
     generar_index()
     for prod in PRODUCTOS:
         generar_producto(prod)
     generar_ayuda()
+    generar_blog()
     generar_gracias()
     generar_manifest()
     generar_sitemap_robots()
     guardar_fechas()
-    print("Sitio generado: index.html + %d productos + %d páginas de ayuda" % (len(PRODUCTOS), len(AYUDA)))
+    print("Sitio generado: index.html + %d productos + %d páginas de ayuda + blog con %d artículos"
+          % (len(PRODUCTOS), len(AYUDA), len(BLOG.ARTICULOS)))

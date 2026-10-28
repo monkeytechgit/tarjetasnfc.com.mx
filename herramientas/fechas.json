@@ -1,90 +1,134 @@
 {
+ "blog/como-aparecer-en-google-maps.html": {
+  "fecha": "2026-10-27",
+  "hash": "2a2f7461bb6a603653d46d6e9334a4081e85e133e34ad023bb061fe96d2cbf32"
+ },
+ "blog/como-compartir-wifi-con-clientes.html": {
+  "fecha": "2026-10-27",
+  "hash": "2e00259fe512705b77c3d645afb96fe56156b7f940f20afa1e5fbc1d896393a0"
+ },
+ "blog/como-conseguir-mas-resenas-en-google.html": {
+  "fecha": "2026-10-27",
+  "hash": "a7f00ada04ec20bf22f70de5001386e543d54c2cd3c518d6dce848161bb65e3e"
+ },
+ "blog/como-conseguir-seguidores-instagram-negocio-local.html": {
+  "fecha": "2026-10-27",
+  "hash": "bfa017243b4cc707a73e268ed4615076e9af9dedc9e7c434925f1a8b720578ee"
+ },
+ "blog/como-responder-resenas-negativas.html": {
+  "fecha": "2026-10-27",
+  "hash": "c328fae2a7166b1311241d511e9d62e790d424d5f53a7f31e22c104001bc240d"
+ },
+ "blog/index.html": {
+  "fecha": "2026-10-27",
+  "hash": "19c52ff7067f82766e0098e78f090fdeb389969c57d4c5ab8b7dd7041d95b269"
+ },
+ "blog/nfc-vs-codigo-qr.html": {
+  "fecha": "2026-10-27",
+  "hash": "074a7e1cb008668229a8445e8231ce514c0502649f96853a4b58ed435b44cf26"
+ },
+ "blog/que-es-una-tarjeta-nfc.html": {
+  "fecha": "2026-10-27",
+  "hash": "d14f1b735805cada18fb73a8130e02300933ad00230cc3ad86d356f3654dd720"
+ },
+ "blog/resenas-falsas-y-politicas-de-google.html": {
+  "fecha": "2026-10-27",
+  "hash": "e1517bd98daf8749d7406832be50ba890b5a45a6f6fb8a62fac56f7404c895cb"
+ },
+ "blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html": {
+  "fecha": "2026-10-27",
+  "hash": "64e479e401357890ca1ff5c0f94af940102a2a2cb9304eabe9e510b7ee680bc0"
+ },
+ "blog/tarjetas-nfc-para-restaurantes.html": {
+  "fecha": "2026-10-27",
+  "hash": "1587208a800293e70ee279627a09b0aa8a1a070ec5ba90c251ca8a9d80debc6b"
+ },
  "como-activar-nfc-celular.html": {
   "fecha": "2026-10-27",
-  "hash": "8524f030f0c2cba0abce0f77fa9286526a1ddabaaedfaf56e7cb70faf3fe8cd7"
+  "hash": "05fd9b5f6ddb039a9e9fce660dac8d0be783a52f6d834ae391541e60a02b610f"
  },
  "como-encontrar-enlace-resenas-google.html": {
   "fecha": "2026-10-27",
-  "hash": "91ca983845cde808d4c413940a60f274af9188fddd4ec1188b9f2e6c02ef0a0d"
+  "hash": "fa79e3edcbdb05a8e886bebe10f912b0bbfdc28bc96134cfebda77793f1fd0b3"
  },
  "como-funciona.html": {
   "fecha": "2026-10-27",
-  "hash": "3e1d9025db0a25270547dfa23866bf70c0390c323280c510206280d12eb65593"
+  "hash": "15398f96f2c09835544107323db853d15d52950ffb16c3c8f7df7a763d3dc2da"
  },
  "contacto.html": {
   "fecha": "2026-10-27",
-  "hash": "bf21fe14f197757a9db72bee749ecb5bc136ad09604d8d27db99b15bb4677b17"
+  "hash": "21965f2545ccbb6ae36bfaf74a230f4d60e4192de75c13c431a400623b270fa8"
  },
  "envios-y-devoluciones.html": {
   "fecha": "2026-10-27",
-  "hash": "6f5849aaad4eafde74b014a587fee4a8f46876898e4005148966e80c7df604a2"
+  "hash": "15f4b89be4e9edd350e17257c1d9ecff35cc9d36df8f195b9603a24e83720d81"
  },
  "gracias.html": {
   "fecha": "2026-10-27",
-  "hash": "d22f8ae887c0760c44c8c66528957ccd89c275ac187774a5b305fdaafd19a5f2"
+  "hash": "6f71081a4a5e321ea8c943ad40f0b2b38890125b28aae02ba093176f0d2c3744"
  },
  "index.html": {
   "fecha": "2026-10-27",
-  "hash": "a518c5e2ec6b1015dc5bae92a10f6ac095430c9ef61f7cc8b138f72411b98f29"
+  "hash": "249f21601a5209ea5644bc971dd3c202329ba0aa4d72dce054d9987d8f4756f4"
  },
  "productos/tarjeta-nfc-facebook.html": {
   "fecha": "2026-10-27",
-  "hash": "da7b7e3ff1274678d344c4eeef7ba94a7838c87b36d5365ce17c63f9c05e3c0a"
+  "hash": "e79821c7735b99b1251dc71d4e9ae7632d6dfba063ab73397999a38c6234585a"
  },
  "productos/tarjeta-nfc-instagram.html": {
   "fecha": "2026-10-27",
-  "hash": "5e5ef39cac54a1243f487f17cc51261012ebd70b9c09e86147f084ead2796185"
+  "hash": "c6bd7eef3c0981111e0c1ba2e1c3e13a280f711c352f1a52aa89aee324227830"
  },
  "productos/tarjeta-nfc-kick.html": {
   "fecha": "2026-10-27",
-  "hash": "b31ebb52047a4e1b91c1d8ca408d7b073c2f063b9f08cc12e8489d5d10212372"
+  "hash": "8872be0e9d67f0475945ee4f8e0d9873a2598a2304ea3843f58ffaee0dc1bfd7"
  },
  "productos/tarjeta-nfc-linkedin.html": {
   "fecha": "2026-10-27",
-  "hash": "0a38bca7fb8139d7137566e10513ff6ac0f9a29e55dfd060c2c28fed404927c0"
+  "hash": "060bdecc2129ab6a5f834d98d56a354a656c5057ff2dcb85a6e28b9f1d824990"
  },
  "productos/tarjeta-nfc-rappi.html": {
   "fecha": "2026-10-27",
-  "hash": "c7b6eeb0f5f0f8dd816399d2aa653e8cc92b21f9a925cf83061a6691879e8512"
+  "hash": "3573edb4d0d9c43890d2fd9b71736f0a0bfa3484e58c6b5fc7123b8104d8718a"
  },
  "productos/tarjeta-nfc-resenas-airbnb.html": {
   "fecha": "2026-10-27",
-  "hash": "86a6505bfea684768cb8a0051e9d3c4a2eced60be9a68c85255830c7ca280bc8"
+  "hash": "d223a2ffa4f8f8986346287f9969b77bbaaef21556a570d4744e3a13217d7580"
  },
  "productos/tarjeta-nfc-resenas-google.html": {
   "fecha": "2026-10-27",
-  "hash": "5df44da65bdffd327307a7e53d58e09eedd835b0f64a2209c1003c9f54e72569"
+  "hash": "843883c25fcb72811f08d6aef35636cecafe63d6b1e1bc7f10740c3b630ad373"
  },
  "productos/tarjeta-nfc-resenas-tripadvisor.html": {
   "fecha": "2026-10-27",
-  "hash": "3343f7f990640fdb410daacac9d3799829d0b68f42fa8636451644156d10f51e"
+  "hash": "519819d82c37e1f2931b8ae71ec5f7d4f181c6d0ab43391a15ea64c0923d2399"
  },
  "productos/tarjeta-nfc-spotify.html": {
   "fecha": "2026-10-27",
-  "hash": "999d16cd91b3788866495f7d8d395f7aa2e3ae026ebf8f76edcf38e5eb4cec02"
+  "hash": "8a2469d0b0887269f5e6f111212381dfe0c2293022d3dac9c0816edb1a3c1a9c"
  },
  "productos/tarjeta-nfc-tiktok.html": {
   "fecha": "2026-10-27",
-  "hash": "7effaf842eaaef98a637c74528b33d26ef75a1dca9eb85dcb5d4382c90639959"
+  "hash": "3dbcee6ee7795bb55bc64693f882b88d0c56adb203114bf9ca397c4849ce9875"
  },
  "productos/tarjeta-nfc-twitch.html": {
   "fecha": "2026-10-27",
-  "hash": "023a4b1333d5ebf5859222a9e4db2f11fdfc17c68cfbe1697d869cca593fed55"
+  "hash": "31cf13ac838e2b1deff52432732eab6d2fc6d1914402fab432087e983eb5be67"
  },
  "productos/tarjeta-nfc-uber-eats.html": {
   "fecha": "2026-10-27",
-  "hash": "11c4936841cee99e5b209c193b188b62d2e29d13af5154273d52e38a9e735cad"
+  "hash": "c7b746fb55f98400ae7fe93f7c4118addf154b9a916c1a6728e4f836b8e5d9b1"
  },
  "productos/tarjeta-nfc-whatsapp.html": {
   "fecha": "2026-10-27",
-  "hash": "f396561a2f4428969f70e98f5cc6b012f6a2e820a9ee2288e96641a785bbe7a2"
+  "hash": "5cb3ff4e9d19f73820bd7773c793f1be24630a64f4c67f0db13ef6a7537cb9e8"
  },
  "productos/tarjeta-nfc-wifi.html": {
   "fecha": "2026-10-27",
-  "hash": "6b71cfc62083ebe59a59e2a7d8ff8e8b3afab40a17721b6ba87bde3456c2165e"
+  "hash": "929831519f4933a8209e85c24e0f6e3dbffbe9b60e277a7b3abec6a0917f098a"
  },
  "productos/tarjeta-nfc-youtube.html": {
   "fecha": "2026-10-27",
-  "hash": "29719120d2a59594f1c3cbfcd30b58abc75e29ceafa8eef5adf657e9298a1aa4"
+  "hash": "877c54800f9796119ba6caf5e0a02b6b1d54f3a48319254495354b2bb9485ec3"
  }
 }
