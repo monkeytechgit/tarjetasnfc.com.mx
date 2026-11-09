@@ -1,0 +1,48 @@
+# TarjetasNFC (tarjetasnfc.com.mx)
+
+> Tienda en línea mexicana de tarjetas NFC con código QR para conseguir reseñas en Google, seguidores en redes sociales, chats de WhatsApp, acceso a Wi‑Fi y pedidos a domicilio. Cada tarjeta se programa con el enlace del cliente antes de enviarse. Pago único (sin mensualidades), envío gratis a toda la República Mexicana en 3 a 5 días hábiles.
+
+- Precios (MXN, envío incluido): 1 tarjeta: $549 MXN; 2 tarjetas: $749 MXN; 5 tarjetas: $1,299 MXN; 10 tarjetas: $1,999 MXN
+- Compatibilidad: iPhone XS o posterior y Android con NFC; código QR para cualquier celular con cámara.
+- Contacto: WhatsApp/teléfono +52 664 305 3834 · info@taploop.com.mx
+
+## Tarjetas NFC
+- [Tarjeta NFC para reseñas de Google](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-resenas-google.html): Tarjeta NFC con código QR que abre la ventana de reseñas de Google de tu negocio en un toque. Más estrellas en Google Maps. Pago único y envío gratis.
+- [Tarjeta NFC para Instagram](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-instagram.html): Tarjeta NFC con código QR que abre tu perfil de Instagram en un toque para que tus clientes te sigan al instante. Pago único y envío gratis a todo México.
+- [Tarjeta NFC para Facebook](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-facebook.html): Tarjeta NFC con código QR que abre la página de Facebook de tu negocio para ganar seguidores y recomendaciones en un toque. Envío gratis en México.
+- [Tarjeta NFC para TikTok](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-tiktok.html): Tarjeta NFC con código QR que abre tu perfil de TikTok en un toque para que te sigan y vean tus videos. Para negocios y creadores. Envío gratis.
+- [Tarjeta NFC para WhatsApp](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-whatsapp.html): Tarjeta NFC con código QR que abre un chat de WhatsApp con tu negocio sin guardar el número. Para pedidos, citas y cotizaciones. Envío gratis.
+- [Tarjeta NFC para Wi‑Fi](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-wifi.html): Tarjeta con NFC y código QR para que tus clientes se conecten a tu Wi‑Fi sin escribir la contraseña. Ideal para cafeterías, hoteles y oficinas. Envío gratis.
+- [Tarjeta NFC para reseñas de TripAdvisor](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-resenas-tripadvisor.html): Tarjeta NFC con código QR que lleva a tus huéspedes y comensales a tu ficha de TripAdvisor para dejar su opinión. Ideal para turismo. Envío gratis a México.
+- [Tarjeta NFC para reseñas de Airbnb](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-resenas-airbnb.html): Tarjeta NFC con código QR que abre tu anuncio de Airbnb para recordar a tus huéspedes calificar su estancia y volver a reservar. Envío gratis.
+- [Tarjeta NFC para Uber Eats](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-uber-eats.html): Tarjeta NFC con código QR que abre tu restaurante en Uber Eats para que tus clientes vuelvan a pedir a domicilio en segundos. Envío gratis en México.
+- [Tarjeta NFC para Rappi](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-rappi.html): Tarjeta NFC con código QR que abre tu tienda o restaurante en Rappi para que tus clientes vuelvan a pedir a domicilio en un toque. Envío gratis.
+- [Tarjeta NFC para LinkedIn](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-linkedin.html): Tarjeta de presentación NFC con QR que abre tu perfil de LinkedIn con un toque. Networking en juntas, congresos y entrevistas. Envío gratis en México.
+- [Tarjeta NFC para YouTube](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-youtube.html): Tarjeta NFC con código QR que abre tu canal de YouTube para que se suscriban en un toque. Para creadores, escuelas y marcas. Envío gratis en México.
+- [Tarjeta NFC para Spotify](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-spotify.html): Tarjeta NFC con QR que abre tu perfil de artista, canción, playlist o podcast en Spotify con un toque. Para músicos, DJs y negocios. Envío gratis.
+- [Tarjeta NFC para Twitch](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-twitch.html): Tarjeta NFC con código QR que abre tu canal de Twitch en un toque para ganar seguidores en torneos, convenciones y eventos gamer. Envío gratis.
+- [Tarjeta NFC para Kick](https://www.tarjetasnfc.com.mx/productos/tarjeta-nfc-kick.html): Tarjeta NFC con código QR que abre tu canal de Kick en un toque para ganar seguidores en eventos, meetups y colaboraciones. Envío gratis en México.
+
+## Ayuda
+- [Cómo funciona](https://www.tarjetasnfc.com.mx/como-funciona.html)
+- [Cómo encontrar tu enlace de reseñas de Google](https://www.tarjetasnfc.com.mx/como-encontrar-enlace-resenas-google.html)
+- [Cómo activar el NFC de tu celular](https://www.tarjetasnfc.com.mx/como-activar-nfc-celular.html)
+- [Envíos y devoluciones](https://www.tarjetasnfc.com.mx/envios-y-devoluciones.html)
+- [Contacto](https://www.tarjetasnfc.com.mx/contacto.html)
+
+## Blog
+- [Google Maps 2026: las nuevas protecciones contra reseñas falsas y qué significan para tu negocio](https://www.tarjetasnfc.com.mx/blog/google-maps-nuevas-protecciones-resenas-2026.html): Google anunció pausas automáticas de reseñas, Gemini contra ediciones falsas y alertas para dueños. Qué cambió en 2026 y qué debe hacer tu negocio.
+- [Estadísticas de reseñas en línea 2026: los datos que todo negocio en México debe conocer](https://www.tarjetasnfc.com.mx/blog/estadisticas-de-resenas-en-linea-2026.html): Cuántas reseñas necesitas, qué calificación esperan los clientes, qué tan recientes deben ser y el auge de la IA: datos 2026 de BrightLocal, Google e INEGI.
+- [Cómo conseguir más reseñas en Google: 15 estrategias que sí funcionan (y respetan las reglas)](https://www.tarjetasnfc.com.mx/blog/como-conseguir-mas-resenas-en-google.html): 15 formas comprobadas de conseguir más reseñas en Google para tu negocio en México, sin romper las reglas y sin incomodar a tus clientes.
+- [Qué es una tarjeta NFC, cómo funciona y para qué sirve en tu negocio](https://www.tarjetasnfc.com.mx/blog/que-es-una-tarjeta-nfc.html): Qué es una tarjeta NFC, cómo funciona sin batería, qué celulares la leen y cómo usarla en tu negocio para conseguir reseñas y clientes.
+- [Cómo aparecer en los primeros lugares de Google Maps: guía de SEO local para negocios en México](https://www.tarjetasnfc.com.mx/blog/como-aparecer-en-google-maps.html): Cómo decide Google qué negocios mostrar en Maps y 12 acciones de SEO local para que tu negocio en México aparezca en los primeros lugares.
+- [Cómo responder reseñas negativas en Google: guía con 8 plantillas listas para usar](https://www.tarjetasnfc.com.mx/blog/como-responder-resenas-negativas.html): Cómo responder reseñas negativas en Google sin perder clientes: método de 5 pasos, qué evitar, cuándo reportar y 8 plantillas en español.
+- [NFC vs. código QR: diferencias, ventajas y cuál conviene a tu negocio](https://www.tarjetasnfc.com.mx/blog/nfc-vs-codigo-qr.html): Comparativa entre NFC y código QR: cómo funcionan, velocidad, compatibilidad y costo, y por qué conviene usar los dos juntos en tu negocio.
+- [12 formas de usar tarjetas NFC en restaurantes, cafeterías y bares](https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-restaurantes.html): 12 ideas para usar tarjetas NFC en restaurantes, cafeterías y bares: reseñas en Google, Wi‑Fi, delivery y redes, con consejos de colocación.
+- [Cómo compartir el Wi‑Fi con tus clientes sin dictar la contraseña (y de forma segura)](https://www.tarjetasnfc.com.mx/blog/como-compartir-wifi-con-clientes.html): 4 formas de compartir el Wi‑Fi de tu negocio sin dictar la contraseña: código QR, tarjeta NFC, red de invitados y portal cautivo.
+- [Reseñas falsas y reseñas pagadas: qué prohíbe Google y cómo proteger tu negocio](https://www.tarjetasnfc.com.mx/blog/resenas-falsas-y-politicas-de-google.html): Qué considera Google como reseñas falsas o incentivadas, qué sanciones aplica, cómo reportar reseñas de la competencia y cómo crecer sin riesgos.
+- [Cómo conseguir seguidores en Instagram para un negocio local: guía práctica](https://www.tarjetasnfc.com.mx/blog/como-conseguir-seguidores-instagram-negocio-local.html): Cómo ganar seguidores reales en Instagram siendo un negocio local: perfil optimizado, contenido que funciona y cómo convertir clientes en seguidores.
+- [Tarjetas NFC para estéticas, barberías, consultorios y negocios de servicios](https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html): Cómo usar tarjetas NFC en estéticas, barberías, spas y consultorios para conseguir reseñas, agendar citas por WhatsApp y ganar seguidores.
+- [Tarjeta de presentación NFC: la tarjeta digital que se comparte con un toque](https://www.tarjetasnfc.com.mx/blog/tarjeta-de-presentacion-nfc-digital.html): Qué es una tarjeta de presentación NFC, ventajas frente al papel, qué enlace ponerle (LinkedIn, WhatsApp, Instagram) y cómo elegir una sin mensualidades.
+- [Tarjetas NFC para hoteles, hostales y Airbnb: Wi‑Fi, atención y reseñas en un toque](https://www.tarjetasnfc.com.mx/blog/tarjetas-nfc-para-hoteles-y-airbnb.html): Cómo usar tarjetas NFC en hoteles, hostales y rentas de Airbnb para compartir el Wi‑Fi, atender por WhatsApp y conseguir más reseñas en Google y TripAdvisor.
+- [Cómo aparecer en ChatGPT y en las búsquedas con IA si tienes un negocio local](https://www.tarjetasnfc.com.mx/blog/como-aparecer-en-chatgpt-negocio-local.html): El 45% de los consumidores ya usa IA para buscar negocios locales. Cómo eligen ChatGPT y Gemini qué recomendar y un plan de 30 días para aparecer.

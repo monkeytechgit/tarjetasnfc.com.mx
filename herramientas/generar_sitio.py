@@ -21,6 +21,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import blog as BLOG  # noqa: E402  (datos del blog: herramientas/blog.py)
+from contenido_productos import GUIAS  # noqa: E402  (guías únicas por producto)
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMINIO = "https://www.tarjetasnfc.com.mx"
@@ -419,7 +420,7 @@ def head(base, titulo, descripcion, ruta, imagen, grafo, tipo_og="website", keyw
 # --------------------------------------------------------------------------
 def nodo_org():
     return {
-        "@type": "Organization", "@id": ID_ORG, "name": MARCA, "alternateName": ["Tarjetas NFC México", "tarjetasnfc.com.mx"],
+        "@type": "OnlineStore", "@id": ID_ORG, "name": MARCA, "legalName": MARCA, "alternateName": ["Tarjetas NFC México", "tarjetasnfc.com.mx"],
         "url": DOMINIO + "/",
         "logo": {"@type": "ImageObject", "@id": DOMINIO + "/#logo", "url": DOMINIO + "/imagenes/logo.png", "width": 1254, "height": 1254, "caption": MARCA},
         "image": {"@id": DOMINIO + "/#logo"},
@@ -430,7 +431,10 @@ def nodo_org():
         "hasOfferCatalog": {"@id": DOMINIO + "/#paquetes"},
         "areaServed": {"@type": "Country", "name": "México", "identifier": "MX"},
         "knowsLanguage": "es-MX",
-        "knowsAbout": ["Tarjetas NFC", "Reseñas de Google", "Código QR", "Marketing para negocios locales", "Reputación en línea"],
+        "hasMerchantReturnPolicy": devolucion_schema(),
+        "currenciesAccepted": "MXN", "paymentAccepted": "Tarjeta de crédito, tarjeta de débito",
+        "knowsAbout": ["Tarjetas NFC", "Near field communication", "Reseñas de Google", "Perfil de Empresa de Google", "Código QR",
+                       "SEO local", "Marketing para negocios locales", "Reputación en línea", "Tarjetas de presentación digitales"],
         "contactPoint": [
             {"@type": "ContactPoint", "contactType": "customer service", "telephone": TELEFONO_E164, "email": CORREO, "areaServed": "MX", "availableLanguage": ["Spanish"]},
             {"@type": "ContactPoint", "contactType": "sales", "telephone": TELEFONO_E164, "email": CORREO, "areaServed": "MX", "availableLanguage": ["Spanish"]},
@@ -634,7 +638,9 @@ def marquesina_lista():
 
 def pie(base):
     idx = base + "index.html"
-    populares = "".join('<li><a href="%s%s">%s</a></li>' % (base, p["url"], escape(p["nombre"])) for p in PRODUCTOS[:6])
+    populares = "".join('<li><a href="%s%s">%s</a></li>' % (base, p["url"], escape(p["nombre"])) for p in PRODUCTOS)
+    guias = "".join('<li><a href="%sblog/%s.html">%s</a></li>' % (base, a["slug"], escape(a["titulo_seo"].split(":")[0]))
+                    for a in BLOG.ARTICULOS[:6])
     cats = "".join('<li><a href="%s?categoria=%s#catalogo">%s</a></li>' % (idx, c, n) for c, n in CATEGORIAS)
     return f"""
 <footer class="pie">
@@ -657,8 +663,12 @@ def pie(base):
           <ul><li><a href="{idx}#catalogo">Todas las tarjetas</a></li>{cats}<li><a href="{idx}#precios">Paquetes y precios</a></li></ul>
         </div>
         <div>
-          <h3>Más vendidas</h3>
+          <h3>Tarjetas NFC</h3>
           <ul>{populares}</ul>
+        </div>
+        <div>
+          <h3>Guías</h3>
+          <ul>{guias}<li><a href="{base}blog/index.html">Ver todo el blog</a></li></ul>
         </div>
         <div>
           <h3>Ayuda</h3>
@@ -753,7 +763,41 @@ FAQ = [
     ("¿Puedo combinar tarjetas de distintas plataformas?", "Sí. Puedes agregar al carrito tarjetas de Google, Instagram, WhatsApp o cualquier otra plataforma, cada una con su propio paquete. Si necesitas una combinación especial, escríbenos por WhatsApp."),
     ("¿Las tarjetas de Google son las mismas que vende Google?", "No. Son tarjetas independientes fabricadas por TarjetasNFC que abren el enlace oficial de reseñas de tu negocio. Google, Instagram y el resto de marcas mencionadas pertenecen a sus respectivos dueños."),
     ("¿Venden por mayoreo o para agencias?", "Sí. Para pedidos de más de 10 tarjetas, franquicias o agencias de marketing tenemos precios especiales. Escríbenos por WhatsApp para cotizar."),
+    ("¿Cuánto cuesta una tarjeta NFC?", "Una tarjeta cuesta $549 MXN y en paquete el precio baja hasta $200 MXN por tarjeta (paquete de 10 por $1,999 MXN). Todos los precios incluyen la configuración y el envío a cualquier parte de México."),
+    ("¿Una tarjeta NFC para reseñas cumple las políticas de Google?", "Sí. Google permite pedir reseñas a tus clientes. La tarjeta solo abre el enlace oficial de reseñas; no filtra clientes ni ofrece incentivos, y el cliente decide qué calificación dar."),
+    ("¿Cuánto dura la tarjeta?", "El chip NFC no tiene batería ni piezas que se desgasten con el uso normal, así que funciona por años. Lo que más la cuida es evitar doblarla y mantenerla lejos de superficies metálicas."),
+    ("¿Puedo cambiar el enlace de mi tarjeta después?", "La tarjeta se entrega configurada con el enlace que nos diste. Si necesitas cambiarlo, escríbenos por WhatsApp para revisar tu caso antes de pedir una nueva."),
+    ("¿Qué pasa si un cliente no tiene NFC?", "Cada tarjeta trae un código QR impreso con el mismo enlace. Cualquier celular con cámara lo puede escanear, así que ningún cliente se queda fuera."),
+    ("¿Cómo pago mi pedido?", "Pagas en línea con tarjeta de crédito o débito a través de Stripe, una plataforma de pagos segura. Si lo prefieres, también puedes hacer tu pedido por WhatsApp."),
 ]
+
+
+CIFRAS = [
+    ("97%", "de los consumidores lee reseñas antes de elegir un negocio local", "BrightLocal 2026"),
+    ("47%", "no usaría un negocio con menos de 20 reseñas", "BrightLocal 2026"),
+    ("74%", "busca reseñas escritas en los últimos tres meses", "BrightLocal 2026"),
+    ("84.6%", "de los mexicanos de 6 años y más usa celular", "INEGI, ENDUTIH 2025"),
+]
+
+GIROS = [
+    ("Restaurantes y cafeterías", "Reseñas al llevar la cuenta, Wi‑Fi en la mesa y delivery en cada bolsa.", "blog/tarjetas-nfc-para-restaurantes.html", "Ideas para restaurantes"),
+    ("Estéticas y barberías", "Reseñas al terminar el servicio e Instagram para mostrar tus cortes.", "blog/tarjetas-nfc-para-esteticas-barberias-consultorios.html", "Guía para servicios"),
+    ("Consultorios y clínicas", "Reseñas de pacientes y WhatsApp para agendar la siguiente cita.", "productos/tarjeta-nfc-whatsapp.html", "Tarjeta de WhatsApp"),
+    ("Hoteles y Airbnb", "Wi‑Fi sin contraseña, opiniones en TripAdvisor y huéspedes que regresan.", "blog/tarjetas-nfc-para-hoteles-y-airbnb.html", "Guía para hospedaje"),
+    ("Tiendas y boutiques", "Seguidores en Instagram y TikTok, y reseñas en Google desde la caja.", "productos/tarjeta-nfc-instagram.html", "Tarjeta de Instagram"),
+    ("Profesionistas y ventas", "Tu tarjeta de presentación digital con LinkedIn o WhatsApp.", "blog/tarjeta-de-presentacion-nfc-digital.html", "Tarjeta de presentación NFC"),
+    ("Talleres y servicios a domicilio", "Reseñas en Google y WhatsApp para cotizar sin guardar tu número.", "productos/tarjeta-nfc-resenas-google.html", "Tarjeta de reseñas"),
+    ("Dark kitchens y delivery", "Pedidos recurrentes en Uber Eats y Rappi desde cada entrega.", "productos/tarjeta-nfc-uber-eats.html", "Tarjeta de Uber Eats"),
+    ("Creadores y streamers", "Seguidores en TikTok, YouTube, Twitch, Kick y Spotify en eventos.", "productos/tarjeta-nfc-tiktok.html", "Tarjeta de TikTok"),
+]
+
+
+def cifras_html():
+    return "".join('<div class="cifra"><strong>%s</strong><span>%s</span></div>' % (n, t) for n, t, _ in CIFRAS)
+
+
+def giros_html(base=""):
+    return "".join('<div class="giro"><h3>%s</h3><p>%s</p><a href="%s%s">%s →</a></div>' % (t, d, base, u, l) for t, d, u, l in GIROS)
 
 
 def faq_html():
@@ -796,8 +840,8 @@ def generar_index():
 </div>""")
 
     titulo = "Tarjetas NFC para Reseñas de Google y Redes Sociales | México"
-    descripcion = ("Tarjetas NFC con código QR para más reseñas en Google y seguidores en Instagram, TikTok y WhatsApp. "
-                   "Desde $200 MXN, pago único y envío gratis en México.")
+    descripcion = ("Tarjetas NFC con código QR para conseguir más reseñas en Google y seguidores en Instagram, TikTok y WhatsApp. "
+                   "Desde $200 MXN y envío gratis a todo México.")
     grafo = [nodo_org(), nodo_sitio()] + nodos_pagina(
         "", "Tarjetas NFC para reseñas y redes sociales en México", descripcion, [], "CollectionPage",
         "imagenes/productos/google-nfc.png", {"mainEntity": {"@id": DOMINIO + "/#catalogo"}}, (),
@@ -831,8 +875,8 @@ def generar_index():
   <section class="seccion" id="catalogo" aria-labelledby="titulo-catalogo">
     <div class="contenedor">
       <div class="catalogo__encabezado">
-        <h1 id="titulo-catalogo">Tarjetas NFC para cada plataforma</h1>
-        <p>Elige la plataforma, nosotros la configuramos con tu enlace y te la enviamos lista para usar. Envío gratis a todo México.</p>
+        <h1 id="titulo-catalogo">Tarjetas NFC para reseñas de Google y redes sociales en México</h1>
+        <p>Elige la plataforma (Google, Instagram, WhatsApp, TikTok y 11 más), nosotros configuramos el chip NFC y el código QR con tu enlace y te la enviamos lista para usar. Pago único y envío gratis a todo México.</p>
       </div>
       <div class="catalogo__barra">
         <div class="filtros" role="group" aria-label="Filtrar por categoría">{chips}</div>
@@ -880,6 +924,29 @@ def generar_index():
     </div>
   </section>
 
+  <section class="seccion seccion--gris" id="por-que-resenas" aria-labelledby="titulo-cifras">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <span class="etiqueta-seccion">Datos 2026</span>
+        <h2 id="titulo-cifras">¿Por qué las reseñas deciden a dónde van tus clientes?</h2>
+        <p>Tus clientes comparan antes de visitarte. Esto dicen los estudios más recientes.</p>
+      </div>
+      <div class="cifras">{cifras_html()}</div>
+      <p class="cifras__fuente">Fuentes: <a href="https://www.brightlocal.com/research/local-consumer-review-survey/" target="_blank" rel="noopener"><u>BrightLocal, Local Consumer Review Survey 2026</u></a> e <a href="https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/endutih/ENDUTIH_25.pdf" target="_blank" rel="noopener"><u>INEGI, ENDUTIH 2025</u></a>. Más datos en nuestro artículo de <a href="blog/estadisticas-de-resenas-en-linea-2026.html"><u>estadísticas de reseñas 2026</u></a>.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="negocios" aria-labelledby="titulo-giros">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <span class="etiqueta-seccion">Para cada negocio</span>
+        <h2 id="titulo-giros">Tarjetas NFC para todo tipo de negocio</h2>
+        <p>Restaurantes, estéticas, consultorios, hoteles, tiendas y creadores de todo México ya las usan.</p>
+      </div>
+      <div class="giros">{giros_html()}</div>
+    </div>
+  </section>
+
   <section class="seccion seccion--gris" id="precios" aria-labelledby="titulo-precios">
     <div class="contenedor">
       <div class="encabezado-seccion">
@@ -892,7 +959,52 @@ def generar_index():
     </div>
   </section>
 
-{seccion_blog(base, BLOG.ARTICULOS[:3])}
+  <section class="seccion" id="comparativa" aria-labelledby="titulo-comparativa">
+    <div class="contenedor contenedor--texto">
+      <div class="encabezado-seccion">
+        <span class="etiqueta-seccion">Comparativa</span>
+        <h2 id="titulo-comparativa">Tarjeta NFC + QR vs. otras formas de pedir reseñas</h2>
+      </div>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th></th><th>Tarjeta NFC + QR</th><th>Solo código QR</th><th>Pedirla de palabra</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Pasos para el cliente</th><td>1 toque</td><td>Abrir cámara, enfocar y tocar</td><td>Buscar tu negocio y el botón</td></tr>
+          <tr><th scope="row">Funciona con cualquier celular</th><td>Sí (NFC o QR)</td><td>Sí</td><td>Depende del cliente</td></tr>
+          <tr><th scope="row">Funciona con poca luz</th><td>Sí, con NFC</td><td>Con dificultad</td><td>—</td></tr>
+          <tr><th scope="row">Abre el enlace correcto</th><td>Siempre</td><td>Siempre</td><td>No: puede calificar a otro negocio</td></tr>
+          <tr><th scope="row">Difícil de suplantar</th><td>Sí</td><td>No: se puede pegar un QR encima</td><td>—</td></tr>
+          <tr><th scope="row">Impresión que deja</th><td>Moderna y memorable</td><td>Conocida</td><td>Depende del día</td></tr>
+        </tbody>
+      </table></div>
+      <p class="centrado"><a class="enlace-ver-mas" href="blog/nfc-vs-codigo-qr.html">Lee la comparativa completa NFC vs. QR {icono("der", 18)}</a></p>
+    </div>
+  </section>
+
+{seccion_blog(base, BLOG.ARTICULOS[:6], gris=True)}
+
+  <section class="seccion" id="guia-tarjetas-nfc" aria-labelledby="titulo-guia-home">
+    <div class="contenedor contenedor--texto">
+      <div class="prosa texto-seo">
+        <h2 id="titulo-guia-home">Tarjetas NFC en México: todo lo que necesitas saber</h2>
+        <h3>¿Qué es una tarjeta NFC para negocios?</h3>
+        <p>Es una tarjeta del tamaño de una tarjeta de crédito con un pequeño chip NFC (<em>Near Field Communication</em>) y un código QR impreso. Ambos guardan un enlace: el de tus reseñas de Google, tu perfil de Instagram, tu chat de WhatsApp o tu red Wi‑Fi. Cuando un cliente acerca su celular a pocos centímetros, el teléfono lee el chip y abre el enlace al instante. La tarjeta no usa batería: toma la energía del propio celular en el momento de la lectura. Te lo explicamos a fondo en <a href="blog/que-es-una-tarjeta-nfc.html">qué es una tarjeta NFC y cómo funciona</a>.</p>
+        <h3>¿Para qué sirve una tarjeta NFC de reseñas?</h3>
+        <p>Para que tus clientes te califiquen en segundos. En lugar de pedirles que busquen tu negocio en Google Maps, encuentren el botón de reseñas y escriban, la tarjeta los lleva directo a la ventana de calificación. Menos pasos significan más reseñas, y más reseñas recientes ayudan a que tu negocio aparezca en mejores posiciones de Google Maps. Si quieres una estrategia completa, lee <a href="blog/como-conseguir-mas-resenas-en-google.html">15 estrategias para conseguir más reseñas en Google</a>.</p>
+        <h3>¿Qué celulares son compatibles?</h3>
+        <p>Los iPhone XS y posteriores leen tarjetas NFC automáticamente con la pantalla encendida, y la gran mayoría de los celulares Android de gama media y alta tienen NFC (a veces hay que activarlo en Ajustes). Para cualquier otro teléfono, el código QR impreso se escanea con la cámara. Consulta <a href="como-activar-nfc-celular.html">cómo activar el NFC en tu celular</a>.</p>
+        <h3>¿Por qué comprar con TarjetasNFC?</h3>
+        <ul>
+          <li><strong>15 plataformas:</strong> Google, Instagram, Facebook, TikTok, WhatsApp, Wi‑Fi, TripAdvisor, Airbnb, Uber Eats, Rappi, LinkedIn, YouTube, Spotify, Twitch y Kick.</li>
+          <li><strong>Configuración incluida:</strong> programamos cada tarjeta con tu enlace y la probamos antes de enviarla.</li>
+          <li><strong>NFC + QR en la misma tarjeta:</strong> funciona con cualquier celular.</li>
+          <li><strong>Pago único:</strong> sin mensualidades, sin apps y sin suscripciones.</li>
+          <li><strong>Envío gratis a todo México:</strong> CDMX, Guadalajara, Monterrey, Tijuana, Puebla, Querétaro, Mérida, Cancún y cualquier código postal de la República, en 3 a 5 días hábiles.</li>
+        </ul>
+        <h3>¿Cuánto cuestan las tarjetas NFC?</h3>
+        <p>Una tarjeta cuesta {dinero(PAQUETES[0]['precio'])} y el precio por tarjeta baja con los paquetes: {dinero(PAQUETES[1]['precio'])} por 2, {dinero(PAQUETES[2]['precio'])} por 5 y {dinero(PAQUETES[3]['precio'])} por 10 ({dinero(PAQUETES[3]['unidad'])} cada una). El envío y la configuración siempre están incluidos. Para más de 10 tarjetas, franquicias o agencias, <a href="https://wa.me/{WHATSAPP}" target="_blank" rel="noopener">cotiza mayoreo por WhatsApp</a>.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="seccion seccion--gris" id="preguntas" aria-labelledby="titulo-faq">
     <div class="contenedor">
@@ -922,6 +1034,62 @@ INFO_SLIDES = [
 def info_slide(n, i, t, d):
     return ('<div class="info-slide"><div class="info-slide__num">%d</div><div class="info-slide__icono">%s</div>'
             '<h3>%s</h3><p>%s</p></div>' % (n, icono(i, 120, ' stroke-width="1.4"'), t, d))
+
+
+def seccion_guia(p, base):
+    """Guía larga y única de cada producto (contenido de herramientas/contenido_productos.py)."""
+    g = GUIAS[p["slug"]]
+    pl = escape(p["plataforma"])
+    intro = "".join("<p>%s</p>" % x for x in g["intro"])
+    beneficios = "".join("<li><strong>%s.</strong> %s</li>" % (t, d) for t, d in g["beneficios"])
+    pasos = "".join('<li id="enlace-%d"><strong>%s.</strong> %s</li>' % (i + 1, t, d) for i, (t, d) in enumerate(g["enlace"]["pasos"]))
+    donde = "".join("<tr><td>%s</td><td>%s</td></tr>" % (l, d) for l, d in g["donde"])
+    consejos = "".join("<li>%s</li>" % c for c in g["consejos"])
+    faq = "".join('<details><summary>%s %s</summary><div class="acordeon__cuerpo"><p>%s</p></div></details>'
+                  % (escape(q), icono("mas", 20), escape(a)) for q, a in g["faq"])
+    otros = [x for x in PRODUCTOS if x is not p and (x["cat"] == p["cat"] or x["slug"] == "tarjeta-nfc-resenas-google")][:4]
+    combina = ", ".join('<a href="%s%s">%s</a>' % (base, x["url"], escape(x["nombre"])) for x in otros)
+    return f"""
+  <section class="seccion guia-producto" id="guia" aria-labelledby="titulo-guia">
+    <div class="contenedor contenedor--texto">
+      <span class="etiqueta-seccion">Guía completa</span>
+      <div class="prosa">
+        <h2 id="titulo-guia">{g['h2']}</h2>
+        {intro}
+        <h3>Ventajas de la tarjeta NFC para {pl}</h3>
+        <ul>{beneficios}</ul>
+        <h2 id="enlace">{g['enlace']['titulo']}</h2>
+        <p>{g['enlace']['lead']}</p>
+        <ol>{pasos}</ol>
+        <p>{g['enlace']['nota']}</p>
+        <h2 id="donde">Dónde colocar tu tarjeta de {pl}</h2>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Lugar</th><th>Por qué funciona</th></tr></thead>
+          <tbody>{donde}</tbody>
+        </table></div>
+        <h2 id="consejos">Consejos para sacarle el máximo provecho</h2>
+        <ul>{consejos}</ul>
+        <h2 id="especificaciones">Especificaciones de la tarjeta</h2>
+        <div class="tabla-wrap"><table>
+          <tbody>
+            <tr><th scope="row">Tecnología</th><td>Chip NFC con tu enlace en formato estándar NDEF + código QR impreso</td></tr>
+            <tr><th scope="row">Medidas</th><td>85.6 × 54 mm, tamaño tarjeta de crédito (ISO/IEC 7810 ID‑1)</td></tr>
+            <tr><th scope="row">Compatibilidad NFC</th><td>iPhone XS o posterior (lectura automática) y Android con NFC activado</td></tr>
+            <tr><th scope="row">Compatibilidad QR</th><td>Cualquier celular con cámara</td></tr>
+            <tr><th scope="row">Batería / app</th><td>No requiere batería ni aplicación</td></tr>
+            <tr><th scope="row">Configuración</th><td>Incluida: la programamos con tu enlace de {pl} antes de enviarla</td></tr>
+            <tr><th scope="row">Pago</th><td>Pago único, sin mensualidades · desde {dinero(PAQUETES[-1]['unidad'])} por tarjeta</td></tr>
+            <tr><th scope="row">Envío</th><td>Gratis a toda la República Mexicana, 3 a 5 días hábiles</td></tr>
+          </tbody>
+        </table></div>
+        <p>¿Quieres cubrir más canales? Muchos clientes la combinan con estas tarjetas: {combina}. Y si es tu primera tarjeta NFC, revisa <a href="{base}como-funciona.html">cómo funcionan</a> y <a href="{base}como-activar-nfc-celular.html">cómo activar el NFC del celular</a>.</p>
+      </div>
+      <div class="guia-producto__faq" id="preguntas">
+        <h2>Preguntas frecuentes sobre la tarjeta NFC para {pl}</h2>
+        <div class="acordeon">{faq}</div>
+      </div>
+    </div>
+  </section>"""
 
 
 def generar_producto(p):
@@ -979,9 +1147,9 @@ def generar_producto(p):
     url_abs = DOMINIO + "/" + p["url"]
 
     prom_total = CALIFICACIONES.get(p["slug"])
-    titulo = "%s | Envío Gratis en México" % p["nombre"]
-    descripcion = ("%s con código QR, lista para usar. %sDesde %s, pago único y envío gratis a todo México."
-                   % (p["nombre"], ("Calificación %.1f/5. " % prom_total[0]) if prom_total else "", dinero(PAQUETES[-1]["unidad"])))
+    guia = GUIAS[p["slug"]]
+    titulo = guia["titulo_seo"]
+    descripcion = guia["desc_seo"]
     ofertas = [{"@type": "Offer", "name": "%s – paquete de %s" % (p["nombre"], pq["nombre"]), "price": pq["precio"], "priceCurrency": "MXN",
                 "priceValidUntil": PRECIO_VALIDO, "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/NewCondition",
                 "url": url_abs, "seller": {"@id": ID_ORG},
@@ -1015,6 +1183,10 @@ def generar_producto(p):
         p["url"], p["nombre"], descripcion, [("Inicio", ""), (NOMBRE_CAT[p["cat"]], "?categoria=" + p["cat"])], "ItemPage",
         p["imagen"], {"mainEntity": {"@id": url_abs + "#producto"}}, palabras_clave_producto(p),
         [x["url"] for x in relacionados] + ["como-activar-nfc-celular.html", "envios-y-devoluciones.html"]) + [producto]
+    grafo.append(nodo_faq(p["url"], guia["faq"]))
+    grafo.append(nodo_howto(p["url"], "enlace", re.sub(r"<[^>]+>", "", guia["enlace"]["titulo"]),
+                            re.sub(r"<[^>]+>", "", guia["enlace"]["lead"]), guia["enlace"]["pasos"], "PT2M"))
+    producto["description"] = re.sub(r"<[^>]+>", "", " ".join(guia["intro"]))
     extra_meta = ('<meta property="product:price:amount" content="%d">\n<meta property="product:price:currency" content="MXN">\n'
                   '<meta property="product:availability" content="in stock">\n<meta property="product:condition" content="new">\n'
                   '<meta property="product:brand" content="%s">\n' % (PAQUETES[0]["precio"], MARCA))
@@ -1159,6 +1331,7 @@ def generar_producto(p):
     </div>
   </div>
 
+{seccion_guia(p, base)}
   <section class="seccion seccion--gris" aria-labelledby="titulo-como">
     <div class="contenedor">
       <div class="encabezado-seccion">
@@ -1294,6 +1467,26 @@ def generar_ayuda():
                pasos_num("como-ordenar", PASOS_PEDIDO)
                + '<div class="caja__botones"><a class="btn btn--primario" href="index.html#catalogo">Ordenar ahora %s</a></div>' % icono("der", 18),
                "En cuatro pasos tienes tu tarjeta configurada y en camino.", ident="como-ordenar")
+        + caja(icono("nfc"), "Qué hay dentro de tu tarjeta", (
+            '<div class="caja__cuerpo"><p>Cada tarjeta TarjetasNFC combina dos tecnologías que guardan el mismo enlace:</p><ul>'
+            '<li><b>Chip NFC:</b> una antena y un chip diminutos dentro de la tarjeta. Cuando un celular se acerca a 1–4 cm, le transmite energía por inducción y el chip le devuelve tu enlace en formato estándar (NDEF). Por eso no necesita batería.</li>'
+            '<li><b>Código QR impreso:</b> el respaldo universal. Cualquier celular con cámara lo lee, aunque no tenga NFC o lo tenga apagado.</li>'
+            '</ul><p>El enlace se programa antes de enviarte la tarjeta y lo probamos con iPhone y Android. Tú solo la colocas.</p>'
+            '<h3>¿Por qué NFC y QR juntos?</h3><p>El NFC es más rápido (un solo gesto, funciona con poca luz y es difícil de suplantar); el QR es universal. '
+            'Juntos garantizan que <b>todos</b> tus clientes puedan abrir tu enlace. Lee la <a href="blog/nfc-vs-codigo-qr.html">comparativa completa NFC vs. QR</a>.</p></div>'),
+            "Tecnología simple, sin apps ni baterías.", ident="tecnologia")
+        + caja(icono("estrella"), "Dónde colocarla según tu negocio", (
+            '<div class="caja__cuerpo"><div class="tabla-wrap"><table><thead><tr><th>Negocio</th><th>Mejor lugar</th><th>Tarjetas recomendadas</th></tr></thead><tbody>'
+            '<tr><td>Restaurante o cafetería</td><td>Carpeta de la cuenta, caja y mesas</td><td><a href="productos/tarjeta-nfc-resenas-google.html">Google</a>, <a href="productos/tarjeta-nfc-wifi.html">Wi‑Fi</a>, <a href="productos/tarjeta-nfc-uber-eats.html">Uber Eats</a></td></tr>'
+            '<tr><td>Estética o barbería</td><td>Espejo, recepción y caja</td><td><a href="productos/tarjeta-nfc-resenas-google.html">Google</a>, <a href="productos/tarjeta-nfc-instagram.html">Instagram</a></td></tr>'
+            '<tr><td>Consultorio o clínica</td><td>Recepción y sala de espera</td><td><a href="productos/tarjeta-nfc-resenas-google.html">Google</a>, <a href="productos/tarjeta-nfc-whatsapp.html">WhatsApp</a></td></tr>'
+            '<tr><td>Hotel o Airbnb</td><td>Recepción, habitación y salida</td><td><a href="productos/tarjeta-nfc-wifi.html">Wi‑Fi</a>, <a href="productos/tarjeta-nfc-resenas-tripadvisor.html">TripAdvisor</a>, <a href="productos/tarjeta-nfc-resenas-airbnb.html">Airbnb</a></td></tr>'
+            '<tr><td>Tienda o boutique</td><td>Caja y probadores</td><td><a href="productos/tarjeta-nfc-instagram.html">Instagram</a>, <a href="productos/tarjeta-nfc-tiktok.html">TikTok</a>, <a href="productos/tarjeta-nfc-resenas-google.html">Google</a></td></tr>'
+            '<tr><td>Taller o servicio a domicilio</td><td>Mostrador, vehículo y entrega</td><td><a href="productos/tarjeta-nfc-resenas-google.html">Google</a>, <a href="productos/tarjeta-nfc-whatsapp.html">WhatsApp</a></td></tr>'
+            '<tr><td>Profesionista o vendedor</td><td>Cartera, juntas y eventos</td><td><a href="productos/tarjeta-nfc-linkedin.html">LinkedIn</a>, <a href="productos/tarjeta-nfc-whatsapp.html">WhatsApp</a></td></tr>'
+            '</tbody></table></div><p>Regla de oro: coloca la tarjeta donde el cliente ya tiene el celular en la mano y acaba de vivir la mejor parte de tu servicio. '
+            'Acompáñala con una frase corta como «¿Te gustó? Acerca tu celular y califícanos».</p></div>'),
+            "La ubicación hace la diferencia entre una tarjeta que se usa y una que se ignora.", ident="donde-colocar")
         + caja(icono("usuarios"), "Somos TarjetasNFC", (
             '<div class="caja__cuerpo"><p>Con incontables negocios en todo México, notamos que faltaba una pieza: una forma sencilla de conseguir reseñas. '
             'Por eso creamos TarjetasNFC y diseñamos y fabricamos nuestras propias tarjetas NFC «Toca para reseñar».</p>'
@@ -1306,6 +1499,8 @@ def generar_ayuda():
         ("¿Qué pasa si el celular de mi cliente no tiene NFC?", "Puede escanear el código QR que viene impreso en la tarjeta. Así ningún cliente se queda sin dejar su reseña."),
         ("¿Cuánto tarda en llegar mi tarjeta?", "Los envíos suelen tardar de 3 a 5 días hábiles a cualquier parte de México, y el envío es gratis."),
         ("¿Tengo que pagar mensualidades?", "No. Es un pago único: la tarjeta no requiere batería ni suscripción."),
+        ("¿La tarjeta funciona a través de una funda?", "Normalmente sí, si la funda es delgada y no es metálica. Las fundas gruesas, con placas metálicas o con imanes pueden impedir la lectura; en ese caso, el código QR funciona siempre."),
+        ("¿Puedo pedir tarjetas para varias plataformas?", "Sí. Agrega al carrito tarjetas de Google, Instagram, WhatsApp, Wi‑Fi o cualquier otra plataforma, cada una con su propio enlace y paquete."),
     ]
     grafo = [
         nodo_howto("como-funciona.html", "como-funciona", "Cómo funcionan las tarjetas NFC para reseñas de Google",
@@ -1336,6 +1531,23 @@ def generar_ayuda():
             '<div class="caja__botones"><a class="btn btn--primario" href="https://support.google.com/business/answer/16816815" target="_blank" rel="noopener">'
             'Ver guía oficial de Google %s</a></div>' % icono("der", 18)),
             "Sigue estos pasos para obtener el enlace directo con el que tus clientes te califican en Google.", ident="paso-a-paso")
+        + caja(icono("celular"), "Otras formas de encontrar tu enlace", (
+            '<div class="caja__cuerpo"><h3>Desde la app de Google Maps</h3><ol>'
+            '<li>Abre Google Maps con la cuenta que administra tu negocio.</li>'
+            '<li>Toca tu foto de perfil y entra a tu Perfil de Empresa (o busca tu negocio y toca «Administrar»).</li>'
+            '<li>Busca la opción «Pedir reseñas» o «Compartir perfil» y copia el enlace.</li></ol>'
+            '<h3>Desde la computadora</h3><ol>'
+            '<li>Busca el nombre de tu negocio en google.com con la sesión iniciada.</li>'
+            '<li>En el panel de administración que aparece arriba de los resultados, elige «Pedir reseñas».</li>'
+            '<li>Copia el enlace o descarga el código QR que ofrece Google.</li></ol>'
+            '<h3>Problemas comunes</h3><ul>'
+            '<li><b>No veo el panel de administración:</b> estás en una cuenta de Google que no administra el perfil. Cambia de cuenta o pide acceso al propietario.</li>'
+            '<li><b>Mi perfil no está verificado:</b> necesitas completar la verificación antes de recibir y gestionar reseñas.</li>'
+            '<li><b>Tengo varias sucursales:</b> cada sucursal tiene su enlace. Pídelos uno por uno y escríbelos separados por coma al comprar.</li>'
+            '<li><b>El enlace abre otro negocio:</b> revisa que copiaste el enlace desde el perfil correcto; si tu negocio tiene perfiles duplicados, repórtalo a Google.</li>'
+            '</ul><h3>Dónde más usar tu enlace</h3><p>Además de programarlo en tu <a href="%s">tarjeta NFC de reseñas</a>, pégalo en tu firma de correo, en el mensaje de agradecimiento por WhatsApp '
+            'y en tus tickets. Más ideas en <a href="blog/como-conseguir-mas-resenas-en-google.html">cómo conseguir más reseñas en Google</a>.</p></div>' % google["url"]),
+            "Si el panel de tu perfil se ve distinto, prueba con alguno de estos caminos.", ident="otras-formas")
         + caja(icono("estrella"), "¿Aún no tienes Perfil de Negocio?", (
             '<div class="caja__cuerpo"><p>Para recibir reseñas en Google necesitas un Perfil de Negocio verificado. Crearlo es gratis desde '
             '<a href="https://www.google.com/business/" target="_blank" rel="noopener">google.com/business</a>: registra el nombre, la categoría y la dirección '
@@ -1351,6 +1563,8 @@ def generar_ayuda():
         ("¿Mis clientes necesitan una cuenta de Google para dejar una reseña?", "Sí. Google pide iniciar sesión con una cuenta de Google para publicar una reseña. La mayoría de los usuarios de Android y Gmail ya tienen una."),
         ("¿Puedo usar el mismo enlace en varias tarjetas?", "Sí. Puedes programar el mismo enlace en todas las tarjetas que necesites, por ejemplo una por mesa o por caja."),
         ("¿Qué hago si tengo varias sucursales?", "Cada sucursal tiene su propio Perfil de Negocio y su propio enlace. Al comprar, escribe los enlaces separados por coma y configuramos cada tarjeta con el correcto."),
+        ("¿El enlace de reseñas caduca?", "No. El enlace que genera Google desde tu Perfil de Empresa sigue funcionando mientras tu perfil exista. Si eliminas el perfil o creas uno nuevo, necesitarás un enlace nuevo."),
+        ("¿Puedo usar el enlace en WhatsApp o en mis tickets?", "Sí. Puedes compartirlo en mensajes, correos, tickets y redes sociales. Google ofrece también un código QR descargable con el mismo enlace."),
     ]
     pagina_ayuda(
         "como-encontrar-enlace-resenas-google.html", "Cómo Encontrar tu Enlace de Reseñas de Google | Guía",
@@ -1385,6 +1599,25 @@ def generar_ayuda():
         + caja('<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.5 19.4 6.4a.4.4 0 0 0-.7-.4l-1.8 3.1A11 11 0 0 0 12 8a11 11 0 0 0-4.9 1.1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 18h22a10.4 10.4 0 0 0-5.4-8.5zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>',
                "Cómo activar el NFC en Android", pasos_num("android", PASOS_NFC_ANDROID),
                "Sigue estos pasos para encender el NFC en tu celular Android.", ident="android")
+        + caja(icono("buscar"), "Dónde está el NFC según la marca de tu celular", (
+            '<div class="caja__cuerpo"><p>El nombre exacto del menú cambia según la versión del sistema, pero estas son las rutas más comunes. Si no la encuentras, escribe «NFC» en el buscador de Ajustes.</p>'
+            '<div class="tabla-wrap"><table><thead><tr><th>Marca</th><th>Ruta habitual</th></tr></thead><tbody>'
+            '<tr><td>Samsung Galaxy</td><td>Ajustes → Conexiones → NFC y pagos sin contacto</td></tr>'
+            '<tr><td>Google Pixel</td><td>Ajustes → Dispositivos conectados → Preferencias de conexión → NFC</td></tr>'
+            '<tr><td>Motorola</td><td>Ajustes → Dispositivos conectados → Preferencias de conexión → NFC</td></tr>'
+            '<tr><td>Xiaomi, Redmi y POCO</td><td>Ajustes → Conexión y compartir (o «Más conectividad») → NFC</td></tr>'
+            '<tr><td>OPPO y realme</td><td>Ajustes → Conexión y compartir → NFC</td></tr>'
+            '<tr><td>Huawei y Honor</td><td>Ajustes → Más conexiones → NFC</td></tr>'
+            '<tr><td>iPhone</td><td>No hay interruptor: el NFC siempre está activo (iPhone XS o posterior)</td></tr>'
+            '</tbody></table></div>'
+            '<h3>Dónde está la antena NFC</h3><p>En iPhone, en la parte superior trasera, cerca de las cámaras. En la mayoría de los Android, en el centro de la parte trasera; en algunos modelos, cerca de la cámara. '
+            'Acerca esa zona a la tarjeta y mantén el celular quieto un segundo.</p>'
+            '<h3>Si la tarjeta no responde</h3><ul>'
+            '<li>Desbloquea la pantalla: muchos celulares solo leen NFC con la pantalla encendida y desbloqueada.</li>'
+            '<li>Quita la funda si es gruesa, metálica o tiene imanes o tarjetas dentro.</li>'
+            '<li>Cierra apps de cámara o pagos que estén abiertas.</li>'
+            '<li>Usa el código QR impreso: abre el mismo enlace con la cámara.</li></ul></div>'),
+            "Rutas habituales en las marcas más vendidas en México.", ident="marcas")
         + caja(icono("rayo"), "Consejos para usuarios de Android", (
             '<div class="caja__cuerpo"><ul>'
             '<li>Asegúrate de que la pantalla de tu celular esté encendida y desbloqueada.</li>'
@@ -1400,6 +1633,9 @@ def generar_ayuda():
         ("¿Tengo que activar el NFC en iPhone?", "No. En iPhone el NFC viene activado siempre; solo acerca la parte superior del celular a la tarjeta con la pantalla encendida."),
         ("¿La tarjeta NFC necesita batería?", "No. La tarjeta toma la energía del celular en el momento en que lo acercas, así que no necesita batería ni carga."),
         ("¿Qué hago si mi celular no tiene NFC?", "Escanea el código QR impreso en la tarjeta con la cámara de tu celular y se abrirá el mismo enlace."),
+        ("¿El NFC gasta batería?", "El consumo del NFC es muy bajo. Puedes dejarlo encendido sin notar diferencia en la duración de la batería."),
+        ("¿Es seguro tener el NFC activado?", "Sí. El NFC solo funciona a pocos centímetros y, al leer una tarjeta con un enlace, el celular te muestra la página antes de que hagas cualquier acción. Para pagar, tu celular siempre pide desbloqueo o autenticación."),
+        ("¿Dónde está el NFC en un Samsung?", "En la mayoría de los Samsung Galaxy está en Ajustes → Conexiones → NFC y pagos sin contacto."),
     ]
     pagina_ayuda(
         "como-activar-nfc-celular.html", "Cómo Activar el NFC en tu Celular iPhone o Android | Guía",
@@ -1423,6 +1659,19 @@ def generar_ayuda():
             '<li><b>Envío gratis</b> a toda la República Mexicana en todos los pedidos.</li>'
             '<li>Los envíos suelen tardar de <b>3 a 5 días hábiles</b>.</li>'
             '<li>Solo realizamos envíos dentro de México; <b>no hacemos envíos internacionales</b>.</li></ul></div>'), ident="envios")
+        + caja(icono("rayo"), "Del pedido a tu puerta", (
+            '<div class="caja__cuerpo"><div class="tabla-wrap"><table><thead><tr><th>Etapa</th><th>Tiempo habitual</th></tr></thead><tbody>'
+            '<tr><td>Confirmación del pago</td><td>Inmediata (pago en línea con Stripe)</td></tr>'
+            '<tr><td>Configuración y prueba de tus tarjetas</td><td>Mismo día hábil si confirmas antes de las 11:00 a.m.; 1 a 2 días hábiles en temporada alta</td></tr>'
+            '<tr><td>Traslado con paquetería</td><td>3 a 5 días hábiles</td></tr>'
+            '<tr><td>Costo de envío</td><td>Gratis a toda la República</td></tr>'
+            '</tbody></table></div>'
+            '<h3>Cobertura</h3><p>Enviamos a los 32 estados de la República Mexicana: Ciudad de México y Estado de México, Jalisco, Nuevo León, Baja California, Puebla, Querétaro, Guanajuato, Yucatán, Quintana Roo, Veracruz, Chihuahua, Sonora, Sinaloa, Coahuila, '
+            'Michoacán, Oaxaca, Chiapas y el resto del país. A zonas extendidas o de difícil acceso la paquetería puede tardar un poco más.</p>'
+            '<h3>Seguimiento</h3><p>Te escribimos por correo para confirmar los datos de tu tarjeta antes de enviarla. Si tienes dudas sobre tu pedido, escríbenos con tu número de pedido por '
+            '<a href="https://wa.me/%s" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:%s">%s</a>.</p>'
+            '<h3>Pedidos de mayoreo</h3><p>Para más de 10 tarjetas, franquicias o agencias, los tiempos de configuración pueden variar según el volumen. Te damos una fecha estimada al cotizar.</p></div>'
+            % (WHATSAPP, CORREO, CORREO)), "Así avanza tu pedido después de pagar.", ident="tiempos")
         + caja(icono("mexico"), "Exactitud de la dirección", (
             '<div class="caja__cuerpo"><p>Es indispensable que los datos de envío que nos compartas al confirmar tu pedido sean correctos y completos. '
             'No nos hacemos responsables por retrasos o pedidos no entregados a causa de direcciones incorrectas o incompletas.</p></div>'), ident="direccion")
@@ -1442,6 +1691,9 @@ def generar_ayuda():
         ("¿Cuánto tarda en llegar mi pedido?", "Los envíos suelen tardar de 3 a 5 días hábiles. Los pedidos confirmados antes de las 11:00 a.m. (hora del centro de México) en días hábiles salen el mismo día."),
         ("¿Hacen envíos internacionales?", "No. Por ahora solo enviamos dentro de México."),
         ("¿Aceptan devoluciones?", "No, porque cada tarjeta se personaliza para tu negocio. Si tu pedido llega dañado o incompleto, avísanos dentro de las 48 horas siguientes y te daremos una solución."),
+        ("¿Envían a mi ciudad?", "Sí. Enviamos a cualquier código postal de los 32 estados de México, incluidas Ciudad de México, Guadalajara, Monterrey, Tijuana, Puebla, Querétaro, Mérida y Cancún."),
+        ("¿Qué pasa si no hay nadie para recibir el paquete?", "La paquetería normalmente intenta la entrega de nuevo o deja un aviso. Asegúrate de dar una dirección donde alguien pueda recibir en horario hábil."),
+        ("¿Puedo cambiar la dirección después de pagar?", "Escríbenos lo antes posible por WhatsApp o correo. Si tu pedido aún no sale, podemos actualizar la dirección."),
     ]
     pagina_ayuda(
         "envios-y-devoluciones.html", "Envíos y Devoluciones | Envío Gratis a Todo México",
@@ -1470,7 +1722,16 @@ def generar_ayuda():
             '<a href="mailto:%s">%s<div><span>Email</span>%s</div></a>'
             '<a href="https://wa.me/%s" target="_blank" rel="noopener">%s<div><span>WhatsApp</span>Escríbenos ahora</div></a>'
             '</div>' % (TELEFONO_E164, icono("telefono"), TELEFONO, CORREO, icono("correo"), CORREO, WHATSAPP, icono("mensaje"))),
-        "¿Tienes dudas o necesitas ayuda? Escríbenos o llámanos y te ayudamos con tu consulta.", ident="datos") + '</div>'
+        "¿Tienes dudas o necesitas ayuda? Escríbenos o llámanos y te ayudamos con tu consulta.", ident="datos") + '</div>' + caja(
+        icono("ayuda"), "¿En qué te podemos ayudar?", (
+            '<div class="caja__cuerpo"><ul>'
+            '<li><b>Antes de comprar:</b> qué tarjeta te conviene, cuántas necesitas y dónde colocarlas.</li>'
+            '<li><b>Tu enlace:</b> te ayudamos a encontrar el enlace de reseñas de Google, de tu perfil o de tu tienda. Mira también la <a href="como-encontrar-enlace-resenas-google.html">guía del enlace de Google</a>.</li>'
+            '<li><b>Tu pedido:</b> estado del envío, cambios de dirección o problemas con la entrega (<a href="envios-y-devoluciones.html">política de envíos</a>).</li>'
+            '<li><b>Mayoreo y agencias:</b> precios especiales para más de 10 tarjetas, franquicias y agencias de marketing.</li>'
+            '<li><b>Tarjetas con tu logo:</b> pregúntanos por diseños personalizados para tu marca.</li>'
+            '</ul><p>Para una respuesta más rápida, escríbenos por WhatsApp con el nombre de tu negocio y, si ya compraste, tu número de pedido.</p></div>'),
+        "Estos son los temas en los que más ayudamos a nuestros clientes.", ident="temas")
     pagina_ayuda(
         "contacto.html", "Contacto | TarjetasNFC México – Tarjetas NFC para Reseñas",
         "¿Dudas sobre tarjetas NFC o tu pedido? Escríbenos por WhatsApp, llámanos al %s o envía un correo a %s." % (TELEFONO, CORREO),
@@ -1478,7 +1739,12 @@ def generar_ayuda():
          "cotizar tarjetas nfc", "tarjetas nfc mayoreo", "tarjetas nfc tijuana"],
         "Contacto", "Estamos aquí para ayudarte",
         "¿Tienes preguntas o necesitas ayuda? Ya sea que busques más información sobre nuestros productos o apoyo con tu pedido, nuestro equipo está listo para ayudarte. Escríbenos y te responderemos lo antes posible.",
-        cuerpo, [], None, tipo="ContactPage", mas_ayuda=False)
+        cuerpo, [], [
+            ("¿Cuál es la forma más rápida de contactarlos?", "WhatsApp al %s. También puedes llamarnos o escribir a %s." % (TELEFONO, CORREO)),
+            ("¿Hacen pedidos de mayoreo?", "Sí. Para más de 10 tarjetas, franquicias o agencias de marketing tenemos precios especiales. Escríbenos por WhatsApp para cotizar."),
+            ("¿Pueden ayudarme a encontrar mi enlace de reseñas?", "Sí. Envíanos el nombre y la dirección de tu negocio por WhatsApp y te ayudamos a encontrarlo."),
+            ("¿Tienen tienda física?", "Somos una tienda en línea y enviamos gratis a todo México. Atendemos por WhatsApp, teléfono y correo."),
+        ], tipo="ContactPage", mas_ayuda=False)
 
 
 # --------------------------------------------------------------------------
@@ -1574,7 +1840,9 @@ def preparar_blog():
 
 
 def articulos_para_producto(p, n=3):
-    propios = [a for a in BLOG.ARTICULOS if p["slug"] in a["productos"]]
+    por_slug = {a["slug"]: a for a in BLOG.ARTICULOS}
+    propios = [por_slug[s] for s in GUIAS.get(p["slug"], {}).get("blog", []) if s in por_slug]
+    propios += [a for a in BLOG.ARTICULOS if p["slug"] in a["productos"] and a not in propios]
     resto = [a for a in BLOG.ARTICULOS if a not in propios]
     return (propios + resto)[:n]
 
@@ -1884,6 +2152,59 @@ def generar_gracias():
     escribir("gracias.html", html)
 
 
+def generar_404():
+    """Página 404 (GitHub Pages la sirve para cualquier URL inexistente). No se indexa."""
+    base = "/"
+    html = head(base, "Página no encontrada | TarjetasNFC", "La página que buscas no existe o cambió de dirección. Explora nuestras tarjetas NFC para reseñas y redes sociales.",
+                "404.html", "imagenes/productos/" + PRODUCTOS[0]["img"], [nodo_org(), nodo_sitio()], indexar=False)
+    html += f"""
+<body data-base="{base}">
+{header(base, "")}
+<main id="contenido">
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="caja">
+        <div class="caja__icono" aria-hidden="true">{icono("buscar", 30)}</div>
+        <h1 class="caja__titulo">No encontramos esta página</h1>
+        <p class="caja__lead">Puede que el enlace haya cambiado. Estas son las secciones más visitadas:</p>
+        <div class="caja__botones">
+          <a class="btn btn--primario" href="{base}index.html#catalogo">Ver todas las tarjetas {icono("der", 18)}</a>
+          <a class="btn btn--contorno" href="{base}blog/index.html">Ir al blog</a>
+          <a class="btn btn--contorno" href="{base}contacto.html">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="seccion seccion--gris">
+    <div class="contenedor">
+      <div class="encabezado-seccion"><h2>Tarjetas más vendidas</h2></div>
+      <div class="rejilla">{''.join(tarjeta_producto(p, base) for p in PRODUCTOS[:4])}</div>
+    </div>
+  </section>
+</main>
+{pie(base)}
+{carrito_y_scripts(base)}"""
+    escribir("404.html", html)
+
+
+def generar_llms():
+    """llms.txt: resumen del sitio en Markdown para asistentes y buscadores con IA (propuesta llmstxt.org)."""
+    lineas = ["# TarjetasNFC (tarjetasnfc.com.mx)", "",
+              "> Tienda en línea mexicana de tarjetas NFC con código QR para conseguir reseñas en Google, seguidores en redes sociales, "
+              "chats de WhatsApp, acceso a Wi‑Fi y pedidos a domicilio. Cada tarjeta se programa con el enlace del cliente antes de enviarse. "
+              "Pago único (sin mensualidades), envío gratis a toda la República Mexicana en 3 a 5 días hábiles.", "",
+              "- Precios (MXN, envío incluido): " + "; ".join("%s: %s" % (pq["nombre"], dinero(pq["precio"])) for pq in PAQUETES),
+              "- Compatibilidad: iPhone XS o posterior y Android con NFC; código QR para cualquier celular con cámara.",
+              "- Contacto: WhatsApp/teléfono %s · %s" % (TELEFONO, CORREO), "",
+              "## Tarjetas NFC"]
+    lineas += ["- [%s](%s/%s): %s" % (p["nombre"], DOMINIO, p["url"], GUIAS[p["slug"]]["desc_seo"]) for p in PRODUCTOS]
+    lineas += ["", "## Ayuda"]
+    lineas += ["- [%s](%s/%s)" % (t, DOMINIO, a) for a, t in AYUDA]
+    lineas += ["", "## Blog"]
+    lineas += ["- [%s](%s/blog/%s.html): %s" % (a["titulo"], DOMINIO, a["slug"], a["descripcion"]) for a in BLOG.ARTICULOS]
+    escribir("llms.txt", "\n".join(lineas) + "\n")
+
+
 def generar_manifest():
     escribir("site.webmanifest", json.dumps({
         "name": "TarjetasNFC México", "short_name": MARCA, "lang": "es-MX", "start_url": "/", "scope": "/", "display": "standalone",
@@ -1990,6 +2311,8 @@ if __name__ == "__main__":
     generar_ayuda()
     generar_blog()
     generar_gracias()
+    generar_404()
+    generar_llms()
     generar_manifest()
     generar_sitemap_robots()
     guardar_fechas()

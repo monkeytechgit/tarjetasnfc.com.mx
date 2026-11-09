@@ -68,6 +68,30 @@ IMAGENES = {
                          "autor": "Keizers", "licencia": "CC BY-SA 4.0", "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0/",
                          "fuente": "https://commons.wikimedia.org/wiki/File:Barber_shop_in_Liverpool_Polanco_department_store,_Mexico_City.jpg",
                          "ancho": 1200, "alto": 900},
+    "chatgpt-celular": {"alt": "Mano sosteniendo un celular con un asistente de inteligencia artificial abierto frente a una laptop",
+                        "autor": "Jernej Furman", "licencia": "CC BY 2.0", "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+                        "fuente": "https://commons.wikimedia.org/wiki/File:Smartphone_with_ChatGPT_app_and_laptop_(52917381683).jpg", "ancho": 1200, "alto": 710},
+    "hotel-habitacion-cdmx": {"alt": "Habitación de hotel con dos camas en el Hotel Gillow del Centro Histórico de la Ciudad de México",
+                              "autor": "RobertoGlezV", "licencia": "CC0", "licencia_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                              "fuente": "https://commons.wikimedia.org/wiki/File:Hotel_Gillow_Room.jpg", "ancho": 1200, "alto": 900},
+    "tarjetas-presentacion": {"alt": "Tarjetas de presentación en un exhibidor de acrílico sobre un mostrador",
+                              "autor": "Donald Trung Quoc Don", "licencia": "CC BY-SA 4.0", "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+                              "fuente": "https://commons.wikimedia.org/wiki/File:%27t_Japans_Cultureel_Centrum_business_cards,_Amsterdam_(2023)_02.jpg", "ancho": 1200, "alto": 675},
+    "whatsapp-celular": {"alt": "Ícono de WhatsApp en la pantalla de un celular",
+                         "autor": "Yuri Samoilov", "licencia": "CC BY 2.0", "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+                         "fuente": "https://commons.wikimedia.org/wiki/File:Whatsapp_app_icon_on_smartphone_screen_(perspective_render)_(49897226177).jpg", "ancho": 1200, "alto": 802},
+    "mercado-narvarte": {"alt": "Vendedora en un puesto de frutas del tianguis de la colonia Narvarte, Ciudad de México",
+                         "autor": "Adam Jones", "licencia": "CC BY 2.0", "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+                         "fuente": "https://commons.wikimedia.org/wiki/File:Woman_Vendor_at_Fruit_Stall_-_Thursday_Market_-_Narvarte_-_Mexico_City_-_Mexico.jpg", "ancho": 1200, "alto": 675},
+    "consultorio-dental": {"alt": "Sillón dental en un consultorio moderno",
+                           "autor": "Harrison Keely", "licencia": "CC BY 4.0", "licencia_url": "https://creativecommons.org/licenses/by/4.0/",
+                           "fuente": "https://commons.wikimedia.org/wiki/File:A_dental_chair_in_a_dentist_clinic_in_North_Carolina,_United_States.jpg", "ancho": 1200, "alto": 900},
+    "cafe-celular": {"alt": "Mujer en una cafetería usando su celular con una taza de café en la mano",
+                     "autor": "Shixart1985", "licencia": "CC BY 2.0", "licencia_url": "https://creativecommons.org/licenses/by/2.0/",
+                     "fuente": "https://commons.wikimedia.org/wiki/File:Woman_sitting_in_cafe_enjoying_coffee_and_using_smartphone_while_laptop_rests_on_table.jpg", "ancho": 1200, "alto": 801},
+    "habitacion-celestun": {"alt": "Habitación doble de un pequeño hotel en Celestún, Yucatán",
+                            "autor": "Bernard Dupont", "licencia": "CC BY-SA 2.0", "licencia_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+                            "fuente": "https://commons.wikimedia.org/wiki/File:Double_Room_at_Hotel_San_Julio,_Celestun,_Yucatan.jpg", "ancho": 1200, "alto": 675},
 }
 
 # Fuentes externas reutilizables: clave -> (título, editor, url)
@@ -105,10 +129,65 @@ FUENTES = {
     "google-transparencia": ("Protecciones del contenido de Maps", "Informe de Transparencia de Google",
                              "https://transparencyreport.google.com/maps-content/protections?hl=es"),
     "instagram-ayuda": ("Servicio de ayuda de Instagram", "Instagram (Meta)", "https://help.instagram.com/"),
+    "google-protecciones-2026": ("New ways we're protecting businesses on Maps", "Google, The Keyword (16 de abril de 2026)",
+                                 "https://blog.google/products-and-platforms/products/maps/new-ways-were-protecting-businesses-on-maps/"),
+    "inegi-endutih-2025": ("Comunicado de prensa 32/26: Encuesta Nacional sobre Disponibilidad y Uso de Tecnologías de la Información en los Hogares (ENDUTIH) 2025",
+                           "INEGI (16 de junio de 2026)", "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/endutih/ENDUTIH_25.pdf"),
+    "ftc-qr": ("Scammers hide harmful links in QR codes to steal your information", "Comisión Federal de Comercio de EE. UU. (FTC), 2023",
+               "https://consumer.ftc.gov/consumer-alerts/2023/12/scammers-hide-harmful-links-qr-codes-steal-your-information"),
+    "apple-business": ("Apple Business: reclama tu ubicación en Apple Maps", "Apple", "https://business.apple.com/"),
+    "airbnb-resenas": ("Cómo funcionan las evaluaciones", "Centro de ayuda de Airbnb", "https://www.airbnb.mx/help/article/13"),
+    "linkedin-url": ("Administrar la URL de tu perfil público", "Ayuda de LinkedIn", "https://www.linkedin.com/help/linkedin/answer/87"),
+    "nxp-ntag": ("NTAG 213/215/216: NFC Forum Type 2 Tag compliant IC", "NXP Semiconductors",
+                 "https://www.nxp.com/docs/en/data-sheet/NTAG213_215_216.pdf"),
 }
 
 # Artículos en orden de publicación (el primero es el destacado del blog)
 ARTICULOS = [
+    {
+        "slug": "google-maps-nuevas-protecciones-resenas-2026",
+        "publicado": "2026-11-09",
+        "titulo": "Google Maps 2026: las nuevas protecciones contra reseñas falsas y qué significan para tu negocio",
+        "titulo_seo": "Google Maps 2026: Nuevas Protecciones contra Reseñas Falsas",
+        "descripcion": "Google anunció pausas automáticas de reseñas, Gemini contra ediciones falsas y alertas para dueños. Qué cambió en 2026 y qué debe hacer tu negocio.",
+        "cat": "resenas", "imagen": "google-maps-celular",
+        "keywords": ["google maps reseñas falsas 2026", "nuevas políticas reseñas google", "google pausa reseñas", "extorsión reseñas una estrella",
+                     "perfil de empresa google 2026", "google maps gemini", "noticias google maps"],
+        "resumen": ["El 16 de abril de 2026 Google anunció tres protecciones: freno a estafas con reseñas, Gemini contra ediciones falsas y alertas por correo.",
+                    "Si detecta un pico de reseñas sospechosas, Google puede pausar las reseñas nuevas del perfil y mostrar un aviso a los usuarios.",
+                    "En 2025 bloqueó o eliminó más de 292 millones de reseñas y más de 13 millones de perfiles falsos.",
+                    "La estrategia ganadora: reseñas reales, de todos tus clientes, de forma constante y sin incentivos."],
+        "fuentes": ["google-protecciones-2026", "google-politica", "google-restricciones", "brightlocal-2026"],
+        "productos": ["tarjeta-nfc-resenas-google", "tarjeta-nfc-resenas-tripadvisor"],
+        "faq": [
+            ("¿Qué anunció Google sobre las reseñas en abril de 2026?", "Tres protecciones para negocios en Maps: detección de estafas con reseñas (incluida la pausa temporal de reseñas cuando hay un pico sospechoso), uso de Gemini para bloquear ediciones falsas y alertas por correo para que los dueños verificados revisen cambios importantes antes de publicarse."),
+            ("¿Google puede pausar las reseñas de mi negocio?", "Sí. Según Google, si sus sistemas detectan un aumento repentino de reseñas sospechosas, eliminan el contenido falso, pausan temporalmente las reseñas nuevas, avisan al propietario y muestran un aviso a los consumidores."),
+            ("¿Qué hago si me piden dinero por quitar reseñas de una estrella?", "No pagues. Reporta las reseñas desde tu Perfil de Empresa y guarda evidencia de los mensajes. Google indicó que sus sistemas ahora detectan mejor este tipo de extorsión."),
+            ("¿Las tarjetas NFC de reseñas siguen siendo válidas?", "Sí. La tarjeta solo abre el enlace oficial de reseñas; el cliente decide qué escribir. Además ayuda a lograr un flujo constante de reseñas reales, justo lo que Google favorece."),
+        ],
+    },
+    {
+        "slug": "estadisticas-de-resenas-en-linea-2026",
+        "publicado": "2026-11-09",
+        "titulo": "Estadísticas de reseñas en línea 2026: los datos que todo negocio en México debe conocer",
+        "titulo_seo": "Estadísticas de Reseñas en Línea 2026 para Negocios en México",
+        "descripcion": "Cuántas reseñas necesitas, qué calificación esperan los clientes, qué tan recientes deben ser y el auge de la IA: datos 2026 de BrightLocal, Google e INEGI.",
+        "cat": "resenas", "imagen": "mercado-narvarte",
+        "keywords": ["estadísticas de reseñas 2026", "estadísticas reseñas google", "cuántas reseñas necesita un negocio", "datos reseñas en línea",
+                     "endutih 2025", "brightlocal 2026 español", "reputación en línea méxico"],
+        "resumen": ["97% de los consumidores lee reseñas de negocios locales y 47% no usaría uno con menos de 20 reseñas (BrightLocal 2026).",
+                    "74% busca reseñas de los últimos tres meses y 68% exige al menos 4 estrellas.",
+                    "89% espera que el dueño responda; 81% espera la respuesta en menos de una semana.",
+                    "El uso de IA para pedir recomendaciones locales saltó de 6% a 45%; en México, 84.6% usa celular (INEGI 2025)."],
+        "fuentes": ["brightlocal-2026", "inegi-endutih-2025", "google-protecciones-2026", "google-ranking"],
+        "productos": ["tarjeta-nfc-resenas-google", "tarjeta-nfc-resenas-tripadvisor", "tarjeta-nfc-resenas-airbnb"],
+        "faq": [
+            ("¿Cuántas reseñas necesita un negocio?", "Como mínimo, supera las 20: según BrightLocal 2026, el 47% de los consumidores no usaría un negocio con menos de 20 reseñas y solo el 9% usaría uno con cinco o menos."),
+            ("¿Qué calificación mínima esperan los clientes?", "El 68% exige al menos 4 estrellas y el 31% solo usaría negocios con 4.5 o más. Solo el 10% exige exclusivamente negocios de 5 estrellas."),
+            ("¿Qué tan recientes deben ser las reseñas?", "El 74% de los consumidores busca reseñas de los últimos tres meses y el 32% de las últimas dos semanas, por eso importa tener un flujo constante."),
+            ("¿Cuántos mexicanos usan internet y celular?", "Según la ENDUTIH 2025 del INEGI, 86.1% de la población de 6 años y más usó internet (104.9 millones de personas) y 84.6% usó teléfono celular."),
+        ],
+    },
     {
         "slug": "como-conseguir-mas-resenas-en-google",
         "titulo": "Cómo conseguir más reseñas en Google: 15 estrategias que sí funcionan (y respetan las reglas)",
@@ -313,4 +392,126 @@ ARTICULOS = [
             ("¿Sirve la tarjeta de WhatsApp para agendar citas?", "Sí. Abre un chat con tu número sin que el cliente tenga que guardarlo. Puedes responder con tu agenda o con un enlace a tu sistema de citas."),
         ],
     },
+    {
+        "slug": "tarjeta-de-presentacion-nfc-digital",
+        "publicado": "2026-11-09",
+        "titulo": "Tarjeta de presentación NFC: la tarjeta digital que se comparte con un toque",
+        "titulo_seo": "Tarjeta de Presentación NFC Digital: Guía para Profesionistas",
+        "descripcion": "Qué es una tarjeta de presentación NFC, ventajas frente al papel, qué enlace ponerle (LinkedIn, WhatsApp, Instagram) y cómo elegir una sin mensualidades.",
+        "cat": "nfc", "imagen": "tarjetas-presentacion",
+        "keywords": ["tarjeta de presentación nfc", "tarjeta de presentación digital", "tarjeta nfc linkedin", "tarjeta de presentación inteligente",
+                     "tarjeta nfc profesional", "tarjetas de presentación méxico", "networking nfc"],
+        "resumen": ["Una tarjeta de presentación NFC abre tu LinkedIn, WhatsApp o portafolio con un toque, sin apps.",
+                    "No se regala: se muestra. Tú te quedas con la tarjeta y la otra persona se lleva tu contacto.",
+                    "Elige el enlace según tu objetivo: LinkedIn para networking, WhatsApp para vender, Instagram para mostrar tu trabajo.",
+                    "Evita las tarjetas que dependen de una suscripción: si dejas de pagar, dejan de funcionar."],
+        "fuentes": ["linkedin-url", "nfc-forum", "apple-corenfc", "android-nfc"],
+        "productos": ["tarjeta-nfc-linkedin", "tarjeta-nfc-whatsapp", "tarjeta-nfc-instagram"],
+        "faq": [
+            ("¿Qué es una tarjeta de presentación NFC?", "Es una tarjeta con un chip NFC (y normalmente un código QR) que abre tu perfil profesional, tu WhatsApp o tu sitio web cuando alguien acerca su celular, sin necesidad de apps."),
+            ("¿La otra persona necesita una app?", "No. Los iPhone XS y posteriores y la mayoría de los Android con NFC leen la tarjeta de forma nativa. Para los demás, el código QR se escanea con la cámara."),
+            ("¿Qué pasa si cambio de trabajo?", "Si la tarjeta abre tu LinkedIn, solo actualizas tu perfil y la tarjeta sigue funcionando. Evita cambiar tu URL personalizada, porque el enlace anterior dejaría de funcionar."),
+            ("¿Tiene mensualidades?", "Las tarjetas de TarjetasNFC son de pago único y se programan con tu enlace directo, así que no dependen de ninguna suscripción."),
+        ],
+    },
+    {
+        "slug": "tarjetas-nfc-para-hoteles-y-airbnb",
+        "publicado": "2026-11-09",
+        "titulo": "Tarjetas NFC para hoteles, hostales y Airbnb: Wi‑Fi, atención y reseñas en un toque",
+        "titulo_seo": "Tarjetas NFC para Hoteles y Airbnb: Wi‑Fi y Reseñas",
+        "descripcion": "Cómo usar tarjetas NFC en hoteles, hostales y rentas de Airbnb para compartir el Wi‑Fi, atender por WhatsApp y conseguir más reseñas en Google y TripAdvisor.",
+        "cat": "negocios", "imagen": "hotel-habitacion-cdmx",
+        "keywords": ["tarjetas nfc para hoteles", "tarjeta nfc airbnb", "reseñas tripadvisor hotel", "wifi para huéspedes",
+                     "cómo conseguir reseñas airbnb", "marketing hotelero méxico", "anfitrión airbnb consejos"],
+        "resumen": ["En hospedaje las reseñas pesan más: el huésped no conoce la zona y decide por lo que escribieron otros.",
+                    "Coloca cada tarjeta en su momento: Wi‑Fi y WhatsApp al llegar, reseñas al salir.",
+                    "En Airbnb, huésped y anfitrión tienen 14 días después del check‑out para evaluarse; la tarjeta funciona como recordatorio.",
+                    "Para viajeros extranjeros, usa frases bilingües junto a la tarjeta."],
+        "fuentes": ["airbnb-resenas", "brightlocal-2026", "google-pedir-resenas", "zxing-wifi"],
+        "productos": ["tarjeta-nfc-wifi", "tarjeta-nfc-resenas-tripadvisor", "tarjeta-nfc-resenas-airbnb", "tarjeta-nfc-whatsapp"],
+        "faq": [
+            ("¿Cuánto tiempo tiene un huésped de Airbnb para dejar su reseña?", "Según el Centro de ayuda de Airbnb, huésped y anfitrión tienen 14 días después del check‑out para escribir su evaluación."),
+            ("¿Qué tarjetas necesita un hotel pequeño?", "Una de Wi‑Fi por habitación y un par de tarjetas de reseñas de Google y TripAdvisor en recepción y en el restaurante suelen ser suficientes para empezar."),
+            ("¿Las tarjetas funcionan con celulares extranjeros?", "Sí. El NFC y el código QR funcionan igual con celulares de cualquier país."),
+            ("¿Puedo ofrecer un descuento a cambio de una reseña?", "No. Google, TripAdvisor y Airbnb prohíben los incentivos a cambio de reseñas. Invita a todos tus huéspedes por igual."),
+        ],
+    },
+    {
+        "slug": "como-aparecer-en-chatgpt-negocio-local",
+        "publicado": "2026-11-09",
+        "titulo": "Cómo aparecer en ChatGPT y en las búsquedas con IA si tienes un negocio local",
+        "titulo_seo": "Cómo Aparecer en ChatGPT y Búsquedas con IA: Negocio Local",
+        "descripcion": "El 45% de los consumidores ya usa IA para buscar negocios locales. Cómo eligen ChatGPT y Gemini qué recomendar y un plan de 30 días para aparecer.",
+        "cat": "seo-local", "imagen": "chatgpt-celular",
+        "keywords": ["cómo aparecer en chatgpt", "seo para ia", "negocio local inteligencia artificial", "aparecer en gemini",
+                     "búsqueda con ia negocios", "apple maps negocio", "seo local 2026"],
+        "resumen": ["El uso de ChatGPT y otras IA para pedir recomendaciones locales pasó de 6% a 45% en un año (BrightLocal 2026).",
+                    "Los asistentes resumen lo que ya existe sobre tu negocio: perfiles, reseñas, redes y tu sitio web.",
+                    "Las reseñas reales y detalladas son la materia prima con la que la IA te describe.",
+                    "La información consistente en Google, Apple Maps y redes facilita que te recomienden."],
+        "fuentes": ["brightlocal-2026", "google-ranking", "apple-business", "google-politica"],
+        "productos": ["tarjeta-nfc-resenas-google", "tarjeta-nfc-instagram"],
+        "faq": [
+            ("¿Se puede pagar para aparecer en ChatGPT?", "No existe una forma de pagar para aparecer en las respuestas orgánicas de los asistentes de IA. Lo que funciona es tener información completa y consistente y buenas reseñas en las plataformas que consultan."),
+            ("¿Las reseñas de Google influyen en lo que dice la IA?", "Las reseñas son una de las fuentes públicas más ricas sobre un negocio. El 82% de los consumidores lee resúmenes de reseñas generados por IA, según BrightLocal 2026."),
+            ("¿Necesito un sitio web para aparecer en la IA?", "No es indispensable, pero ayuda: es la única fuente que controlas al 100%. Como mínimo, mantén completo tu Perfil de Empresa de Google y tus redes."),
+            ("¿Qué es Apple Business?", "Es el portal de Apple para empresas, donde puedes reclamar tu ubicación en Apple Maps y controlar tu logo, horarios e imágenes."),
+        ],
+    },
 ]
+
+# --------------------------------------------------------------------------
+# Ampliaciones de noviembre de 2026: fuentes y preguntas nuevas de los
+# artículos originales (las secciones nuevas están en sus archivos .html).
+# --------------------------------------------------------------------------
+AMPLIACIONES = {
+    "como-conseguir-mas-resenas-en-google": {
+        "fuentes": ["google-protecciones-2026"],
+        "faq": [("¿Puedo pedir muchas reseñas en un solo fin de semana?", "No es recomendable. Desde 2026 Google puede pausar temporalmente las reseñas nuevas de un perfil si detecta un aumento repentino de reseñas sospechosas. Es mejor un flujo constante de reseñas reales cada semana."),
+                ("¿Las reseñas de Apple Maps también importan?", "Sí. Según BrightLocal 2026, el uso de Apple Maps para leer reseñas locales subió de 14% a 27%. Google sigue siendo la plataforma principal, pero conviene revisar tu presencia en otras.")],
+    },
+    "que-es-una-tarjeta-nfc": {
+        "fuentes": ["inegi-endutih-2025", "nxp-ntag"],
+        "faq": [("¿Qué chip usan las tarjetas NFC?", "La mayoría usa chips NTAG de NXP (NTAG213, 215 o 216), compatibles con el estándar Type 2 del NFC Forum. Para guardar un enlace, cualquiera de ellos es suficiente."),
+                ("¿Cuánto dura una tarjeta NFC?", "Sin batería ni piezas móviles, una tarjeta NFC dura años con uso normal. Lo que más la daña es doblarla, porque puede romper la antena interna.")],
+    },
+    "como-aparecer-en-google-maps": {
+        "fuentes": ["google-protecciones-2026", "inegi-endutih-2025", "apple-business"],
+        "faq": [("¿Qué cambió en Google Maps en 2026?", "Google anunció alertas por correo para que los dueños verificados revisen cambios importantes antes de publicarse, el uso de Gemini para bloquear ediciones falsas y pausas automáticas de reseñas cuando detecta picos sospechosos."),
+                ("¿También debo estar en Apple Maps?", "Conviene. En Apple Business puedes reclamar tu ubicación en Apple Maps y controlar logo, horarios e imágenes; su uso para leer reseñas casi se duplicó en 2026 según BrightLocal.")],
+    },
+    "como-responder-resenas-negativas": {
+        "fuentes": ["google-protecciones-2026"],
+        "faq": [("¿Qué hago si alguien me pide dinero para quitar reseñas malas?", "No pagues. Guarda evidencia de los mensajes y reporta las reseñas desde tu Perfil de Empresa. Google indicó en 2026 que sus sistemas detectan mejor este tipo de extorsión."),
+                ("¿Puedo usar plantillas para responder?", "Sí, como punto de partida. Pero el 50% de los consumidores rechaza las respuestas genéricas (BrightLocal 2026), así que personaliza cada respuesta con algo concreto de la reseña.")],
+    },
+    "nfc-vs-codigo-qr": {
+        "fuentes": ["ftc-qr", "inegi-endutih-2025"],
+        "faq": [("¿Es peligroso escanear códigos QR?", "El riesgo está en los QR falsos pegados encima de los originales. La FTC recomienda revisar el enlace antes de abrir un QR encontrado en un lugar inesperado. Un chip NFC dentro de la tarjeta no se puede tapar con una calcomanía.")],
+    },
+    "tarjetas-nfc-para-restaurantes": {
+        "fuentes": ["inegi-endutih-2025"],
+        "faq": [("¿Qué le digo al cliente para pedirle la reseña?", "Algo breve y sincero, como «Si te gustó la comida, nos ayudas mucho con tu opinión; solo acerca tu celular a la tarjeta». Invita a todos los clientes por igual y sin ofrecer nada a cambio.")],
+    },
+    "como-compartir-wifi-con-clientes": {
+        "fuentes": ["airbnb-resenas"],
+        "faq": [("¿Qué es una red de invitados?", "Es una red Wi‑Fi separada que ofrecen la mayoría de los módems y routers. Los clientes navegan en ella sin acceder a los equipos de tu negocio, como la caja o la terminal de pago.")],
+    },
+    "resenas-falsas-y-politicas-de-google": {
+        "fuentes": ["google-protecciones-2026"],
+        "faq": [("¿Cuántas reseñas falsas elimina Google?", "En 2025, Google bloqueó o eliminó más de 292 millones de reseñas que infringían sus políticas y eliminó más de 13 millones de perfiles de empresa falsos, según su anuncio de abril de 2026.")],
+    },
+    "como-conseguir-seguidores-instagram-negocio-local": {
+        "fuentes": ["brightlocal-2026"],
+        "faq": [("¿Qué publico si tengo un negocio local?", "Lo que solo tú puedes mostrar: el proceso, tu equipo, tus novedades y resultados reales de clientes (con su permiso). Un calendario sencillo de tres publicaciones por semana y algunas historias diarias es suficiente.")],
+    },
+    "tarjetas-nfc-para-esteticas-barberias-consultorios": {
+        "fuentes": ["brightlocal-2026"],
+        "faq": [("¿Cómo respondo una reseña de un paciente sin violar su privacidad?", "No confirmes que es tu paciente ni menciones tratamientos o datos de salud. Agradece y ofrece continuar la conversación por un canal privado.")],
+    },
+}
+for _a in ARTICULOS:
+    _x = AMPLIACIONES.get(_a["slug"])
+    if _x:
+        _a["fuentes"] = _a["fuentes"] + [f for f in _x.get("fuentes", []) if f not in _a["fuentes"]]
+        _a["faq"] = _a["faq"] + _x.get("faq", [])
